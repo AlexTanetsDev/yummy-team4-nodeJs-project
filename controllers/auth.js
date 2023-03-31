@@ -40,6 +40,7 @@ const register = async (req, res) => {
   res.status(201).json({
     token,
     user: {
+      id: newUser._id,
       name: newUser.name,
       email: newUser.email,
       password: newUser.password,
@@ -65,7 +66,7 @@ const login = async (req, res) => {
   }
 
   const payload = {
-    id: user._id,
+    _id: user._id,
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
@@ -76,6 +77,24 @@ const login = async (req, res) => {
       email: user.email,
       // subscription: user.subscription,
     },
+  });
+};
+
+const update = async (req, res) => {
+  const { _id, name } = req.body;
+  const newAvatarUrl = req.file.path;
+  if (!name) {
+    await User.findByIdAndUpdate(_id, {
+      avatarURL: newAvatarUrl,
+    });
+    res.json({
+      newAvatarUrl,
+    });
+  }
+  await User.findByIdAndUpdate(_id, { avatarURL: newAvatarUrl, name });
+  res.json({
+    name,
+    newAvatarUrl,
   });
 };
 
@@ -95,6 +114,7 @@ const logout = async (req, res) => {
 module.exports = {
   register: controllersWrapper(register),
   login: controllersWrapper(login),
+  update: controllersWrapper(update),
   getCurrent: controllersWrapper(getCurrent),
   logout: controllersWrapper(logout),
 };
