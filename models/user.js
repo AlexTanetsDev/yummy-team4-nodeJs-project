@@ -53,6 +53,8 @@ const loginSchema = Joi.object({
   email: Joi.string().required(),
 });
 
+
+
 const schemas = {
   registerSchema,
   loginSchema,
