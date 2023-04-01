@@ -2,8 +2,14 @@ const { Recipe } = require("../../models/recipe");
 
 const addOwnRecipes = async (req, res, next) => {
   const { _id } = req.user;
+  // const newAvatarUrl = req.file.path;
 
-  const newRecipe = await Recipe.create({ ...req.body, owner: _id });
+  const newRecipe = await Recipe.create({
+    ...req.body,
+    // thumb: newAvatarUrl,
+    // preview: newAvatarUrl,
+    author: _id,
+  });
 
   res.status(201).json({
     data: newRecipe,

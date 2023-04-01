@@ -17,10 +17,12 @@ const recipeSchema = new Schema(
     },
     instructions: {
       type: String,
+      required: [true, "Instructions is required"],
       //   default: "",
     },
     description: {
       type: String,
+      required: [true, "Description is required"],
     },
     thumb: {
       type: String,
@@ -30,6 +32,7 @@ const recipeSchema = new Schema(
     },
     time: {
       type: String,
+      required: [true, "Cooking time is required"],
     },
     popularity: {
       type: Number,
@@ -40,13 +43,13 @@ const recipeSchema = new Schema(
       type: String,
     },
     tags: [],
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: {
-      type: Date,
+    ingredients: {
+      type: [{ id: String, measure: String }],
+      required: [true, "Ingredients is required"],
     },
-    ingredients: [{ id: Schema.Types.ObjectId, measure : String}],
     author: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "user",
     },
   },
 
@@ -64,8 +67,12 @@ const recipe = Joi.object({
   description: Joi.string().required(),
   instructions: Joi.string().required(),
   time: Joi.string().required(),
+  thumb: Joi.string(),
   preview: Joi.string(),
-  ingredients: Joi.string().required(),
+  ingredients: Joi.array().items({
+    id: Joi.string().required(),
+    measure: Joi.string().required(),
+  }),
 });
 
 const schemas = {
