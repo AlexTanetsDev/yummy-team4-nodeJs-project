@@ -1,8 +1,17 @@
-const category = require("../models/category/index");
+const fs = require("fs/promises");
+const path = require("path");
+const categoryListPath = path.join(
+  __dirname,
+  "..",
+  "StaticData",
+  "categoryList.json"
+);
+console.log(categoryListPath);
 
 const getCategoryList = async (req, res) => {
-  const result = await category.getCategoryList();
-  res.json(result);
+  const result = await fs.readFile(categoryListPath);
+  const data = JSON.parse(result);
+  res.json(data);
 };
 
 module.exports = {
