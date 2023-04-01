@@ -2,6 +2,8 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const { handleMongooseError } = require("../helpers");
 
+const subscriptionList = ["subscribe", "unsubscribe"];
+
 const userSchema = new Schema(
   {
     name: {
@@ -33,6 +35,11 @@ const userSchema = new Schema(
       required: [true, "Verify token is required"],
       default: null,
     },
+    subscription: {
+      type: String,
+      enum: subscriptionList,
+      default: "unsubscribe",
+    },
   },
   {
     versionKey: false,
@@ -53,11 +60,16 @@ const loginSchema = Joi.object({
   email: Joi.string().required(),
 });
 
-
+const updateSubscriptionSchema = Joi.object({
+  subscription: Joi.string()
+    .required()
+    .valid(...subscriptionList),
+});
 
 const schemas = {
   registerSchema,
   loginSchema,
+  updateSubscriptionSchema,
 };
 
 const User = model("user", userSchema);
