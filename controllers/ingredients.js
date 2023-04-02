@@ -6,7 +6,6 @@ const ingredientRecipes = async (req, res) => {
   const { ingredientId = null, page = 1, limit = 8 } = req.query;
   const skip = (page - 1) * limit;
 
-  console.log(req.query);
   if (!ingredientId) {
     throw HttpError(400, "ingredient id not set");
   }
