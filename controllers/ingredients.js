@@ -10,10 +10,6 @@ const ingredientRecipes = async (req, res) => {
     throw HttpError(400, "ingredient id not set");
   }
 
-
-  const { _id: id } = ingredientData;
-
-
   const result = await Recipe.find(
     { "ingredients.id": ingredientId },
     "-updatedAt -createdAt",
