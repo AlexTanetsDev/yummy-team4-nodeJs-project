@@ -7,6 +7,7 @@ const authRouter = require("./routes/api/auth");
 const ownRecepesRouter = require("./routes/api/ownRecipes");
 const mainPageRecipesRouter = require("./routes/api/mainPageRecipes")
 const categoryList = require("./routes/api/categoryList");
+const idRecipesRouter = require("./routes/api/idRecipes");
 
 
 const app = express();
@@ -23,6 +24,7 @@ app.use("/api/users", authRouter);
 app.use("/api/ownRecipes", ownRecepesRouter);
 app.use("/api/recipes/main-page", mainPageRecipesRouter);
 app.use("/api/category", categoryList);
+app.use("/api/recipes", idRecipesRouter);
 
 
 
