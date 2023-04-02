@@ -23,23 +23,38 @@ const searchRecipesByTitle = async (req, res, next) => {
   });
 };
 
+
 const searchRecipesByIngredient = async (req, res, next) => {
   let { page = 1, limit = 4 } = req.query;
   const skip = (page - 1) * limit;
   limit = Number(limit) > 30 ? (limit = 30) : Number(limit);
   
-  const { ingredient: ingredient } = req.body;
-  const searchParams = { $text: { $search: ingredient } }
+  const { ingredient: ttl } = req.body;
 
-  const searchedRecipes = await Ingredient.find(searchParams, "", {
-    skip,
-    limit,
-  });
+  const searchParams = { $text: { $search: ttl } }
+  const ingredientData = await Ingredient.findOne(searchParams, "");
+  if (!ingredientData) {
+    throw HttpError(400, "ingredient not found");
+  }
 
-  res.status(200).json({
-    data: searchedRecipes,
-  });
+  const { _id: id } = ingredientData;
+  console.log(id);
+  const result = await Recipe.find(
+    { "ingredients.id": id },
+    "-updatedAt -createdAt",
+    {
+      skip,
+      limit,
+    }
+  );
+
+  console.log(result);
+  if (!result.length) {
+    throw HttpError(400, "ingredient in recipes not found");
+  }
+  res.json(result);
 };
+
 
 module.exports = {
   searchRecipesByTitle: controllersWrapper(searchRecipesByTitle),
