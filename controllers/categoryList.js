@@ -6,7 +6,7 @@ const categoryListPath = path.join(
   "StaticData",
   "categoryList.json"
 );
-console.log(categoryListPath);
+const { controllersWrapper } = require("../helpers");
 
 const getCategoryList = async (req, res) => {
   const result = await fs.readFile(categoryListPath);
@@ -15,5 +15,5 @@ const getCategoryList = async (req, res) => {
 };
 
 module.exports = {
-  getCategoryList,
+  getCategoryList: controllersWrapper(getCategoryList),
 };
