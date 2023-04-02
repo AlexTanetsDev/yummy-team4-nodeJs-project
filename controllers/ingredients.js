@@ -1,22 +1,21 @@
-const { Ingredient } = require("../models/ingredient");
 const { Recipe } = require("../models/recipe");
 
 const { HttpError, controllersWrapper } = require("../helpers");
 
 const ingredientRecipes = async (req, res) => {
-  const { page = 1, limit = 8 } = req.query;
+  const { ingredientId = null, page = 1, limit = 8 } = req.query;
   const skip = (page - 1) * limit;
-  const { ingredient: ttl } = req.body;
 
-  const ingredientData = await Ingredient.findOne({ ttl });
-  if (!ingredientData) {
-    throw HttpError(400, "ingredient not found");
+  if (!ingredientId) {
+    throw HttpError(400, "ingredient id not set");
   }
+
 
   const { _id: id } = ingredientData;
 
+
   const result = await Recipe.find(
-    { "ingredients.id": id },
+    { "ingredients.id": ingredientId },
     "-updatedAt -createdAt",
     {
       skip,
