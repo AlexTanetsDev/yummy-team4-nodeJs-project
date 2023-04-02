@@ -7,6 +7,8 @@ const authRouter = require("./routes/api/auth");
 const ownRecepesRouter = require("./routes/api/ownRecipes");
 const mainPageRecipesRouter = require("./routes/api/mainPageRecipes");
 const categoryList = require("./routes/api/categoryList");
+
+const ingredientList = require("./routes/api/ingredientList");
 const product = require("./routes/api/product");
 const ingredientsRouter = require("./routes/api/ingredients");
 const idRecipesRouter = require("./routes/api/idRecipes");
@@ -25,6 +27,7 @@ app.use("/api/users", authRouter);
 app.use("/api/ownRecipes", ownRecepesRouter);
 app.use("/api/recipes/main-page", mainPageRecipesRouter);
 app.use("/api/category", categoryList);
+app.use("/api/ingredients/list", ingredientList);
 app.use("/api/shoping-list", product);
 
 app.use("/api/ingredients", ingredientsRouter);
