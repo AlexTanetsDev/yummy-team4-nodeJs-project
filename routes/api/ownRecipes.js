@@ -6,19 +6,18 @@ const {
   authentificate,
   uploadCloud,
 } = require("../../middlewares");
-const { controllersWrapper } = require("../../helpers");
 const { schemas } = require("../../models/recipe");
 
 const router = express.Router();
 
-router.get("/", authentificate, controllersWrapper(ctrl.getAllOwnRecipes));
+router.get("/", authentificate, ctrl.getAllOwnRecipes);
 router.post(
   "/",
   authentificate,
-  uploadCloud.single("image"),
+  uploadCloud.single("recipeImage"),
   validateBody(schemas.recipe),
-  controllersWrapper(ctrl.addOwnRecipe)
+  ctrl.addOwnRecipe
 );
-router.delete("/", authentificate, controllersWrapper(ctrl.removeOwnRecipe));
+router.delete("/", authentificate, ctrl.removeOwnRecipe);
 
 module.exports = router;
