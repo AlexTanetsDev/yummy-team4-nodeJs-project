@@ -7,5 +7,4 @@ const router = express.Router();
 
 router.get("/", authentificate, ctrl.getMainPageRecipes);
 
-
 module.exports = router;
