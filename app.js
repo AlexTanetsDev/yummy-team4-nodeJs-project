@@ -7,7 +7,13 @@ const authRouter = require("./routes/api/auth");
 const ownRecepesRouter = require("./routes/api/ownRecipes");
 const mainPageRecipesRouter = require("./routes/api/mainPageRecipes");
 const categoryList = require("./routes/api/categoryList");
+
 const ingredientList = require("./routes/api/ingredientList");
+const product = require("./routes/api/product");
+const ingredientsRouter = require("./routes/api/ingredients");
+const idRecipesRouter = require("./routes/api/idRecipes");
+const searchRouter = require('./routes/api/search');
+
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
@@ -22,6 +28,12 @@ app.use("/api/ownRecipes", ownRecepesRouter);
 app.use("/api/recipes/main-page", mainPageRecipesRouter);
 app.use("/api/category", categoryList);
 app.use("/api/ingredients/list", ingredientList);
+app.use("/api/shoping-list", product);
+
+app.use("/api/ingredients", ingredientsRouter);
+app.use("/api/recipes", idRecipesRouter);
+app.use("/api/search", searchRouter);
+
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });

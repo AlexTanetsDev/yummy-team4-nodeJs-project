@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
+
 const { handleMongooseError } = require("../helpers");
 
 const ingredientSchema = new Schema(
@@ -38,10 +39,24 @@ const ingredient = Joi.object({
   //   thb: Joi.string().required(),
 });
 
+
+ 
+const getIngredientSchema = Joi.object({
+  ingredient: Joi.string()
+    .required()
+    .messages({ "any.required": "missing field ingredient" }),
+});
+
 const schemas = {
-  ingredient,
+  getIngredientSchema,  ingredient,
+
 };
 
 const Ingredient = model("ingredient", ingredientSchema);
 
-module.exports = { Ingredient, schemas };
+
+module.exports = {
+  Ingredient,
+  schemas,
+};
+

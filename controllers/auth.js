@@ -7,7 +7,7 @@ const gravatar = require("gravatar");
 const { nanoid } = require("nanoid");
 const { User } = require("../models/user");
 
-const { SECRET_KEY } = process.env;
+const { SECRET_KEY, BASE_URL } = process.env;
 
 const { controllersWrapper, HttpError, sendEmail } = require("../helpers");
 

@@ -15,8 +15,8 @@ router.get("/", authentificate, controllersWrapper(ctrl.getAllOwnRecipes));
 router.post(
   "/",
   authentificate,
+  uploadCloud.single("image"),
   validateBody(schemas.recipe),
-  uploadCloud.single("avatar"),
   controllersWrapper(ctrl.addOwnRecipe)
 );
 router.delete("/", authentificate, controllersWrapper(ctrl.removeOwnRecipe));
