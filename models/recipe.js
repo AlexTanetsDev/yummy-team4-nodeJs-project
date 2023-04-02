@@ -39,9 +39,9 @@ const recipeSchema = new Schema(
     youtube: {
       type: String,
     },
-    tags: [],
+    tags: [String],
     ingredients: {
-      type: [{ id: String, measure: String }],
+      type: [{ id: Schema.Types.ObjectId, measure: String }],
       required: [true, "Ingredients is required"],
     },
     author: {
