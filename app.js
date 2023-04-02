@@ -10,8 +10,7 @@ const categoryList = require("./routes/api/categoryList");
 
 const ingredientsRouter = require("./routes/api/ingredients");
 const idRecipesRouter = require("./routes/api/idRecipes");
-
-
+const favoriteRouter = require("./routes/api/favorite");
 
 const app = express();
 
@@ -29,8 +28,7 @@ app.use("/api/category", categoryList);
 
 app.use("/api/ingredients", ingredientsRouter);
 app.use("/api/recipes", idRecipesRouter);
-
-
+app.use("/api/favorite", favoriteRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
