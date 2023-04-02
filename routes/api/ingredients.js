@@ -10,6 +10,7 @@ const router = express.Router();
 
 router.get(
   "/",
+  authentificate,
   validateBody(schemas.getIngredientSchema),
   ctrl.ingredientRecipes
 );
