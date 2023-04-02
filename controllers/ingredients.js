@@ -14,7 +14,7 @@ const ingredientRecipes = async (req, res) => {
   }
 
   const { _id: id } = ingredientData;
-  console.log(id);
+
   const result = await Recipe.find(
     { "ingredients.id": id },
     "-updatedAt -createdAt",
@@ -24,7 +24,6 @@ const ingredientRecipes = async (req, res) => {
     }
   );
 
-  console.log(result);
   if (!result.length) {
     throw HttpError(400, "ingredient in recipes not found");
   }
