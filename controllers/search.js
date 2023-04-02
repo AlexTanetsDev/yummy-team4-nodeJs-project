@@ -1,14 +1,14 @@
-const { controllersWrapper } = require("../helpers");
+const { controllersWrapper, HttpError } = require("../helpers");
 const { Recipe } = require("../models/recipe");
-const {Ingredient}= require("../models/ingredient")
+const { Ingredient } = require("../models/ingredient");
 
 const searchRecipesByTitle = async (req, res, next) => {
   let { page = 1, limit = 4 } = req.query;
   const skip = (page - 1) * limit;
   limit = Number(limit) > 30 ? (limit = 30) : Number(limit);
 
-  const { title: title } = req.body;
-  const searchParams = { $text: { $search: title } }
+  const { title } = req.body;
+  const searchParams = { $text: { $search: title } };
 
   const searchedRecipes = await Recipe.find(searchParams, "", {
     skip,
@@ -23,15 +23,14 @@ const searchRecipesByTitle = async (req, res, next) => {
   });
 };
 
-
 const searchRecipesByIngredient = async (req, res, next) => {
   let { page = 1, limit = 4 } = req.query;
   const skip = (page - 1) * limit;
   limit = Number(limit) > 30 ? (limit = 30) : Number(limit);
-  
+
   const { ingredient: ttl } = req.body;
 
-  const searchParams = { $text: { $search: ttl } }
+  const searchParams = { $text: { $search: ttl } };
   const ingredientData = await Ingredient.findOne(searchParams, "");
   if (!ingredientData) {
     throw HttpError(400, "ingredient not found");
@@ -55,8 +54,7 @@ const searchRecipesByIngredient = async (req, res, next) => {
   res.json(result);
 };
 
-
 module.exports = {
   searchRecipesByTitle: controllersWrapper(searchRecipesByTitle),
-  searchRecipesByIngredient: controllersWrapper(searchRecipesByIngredient)
+  searchRecipesByIngredient: controllersWrapper(searchRecipesByIngredient),
 };
