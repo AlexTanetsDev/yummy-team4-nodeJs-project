@@ -1,58 +1,96 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const gravatar = require("gravatar");
-// const path = require("path");
-// const jimp = require("jimp");
-// const fs = require("fs/promises");
 const { nanoid } = require("nanoid");
 const { User } = require("../models/user");
+const cloudinary = require("cloudinary").v2;
 
 const { SECRET_KEY, BASE_URL } = process.env;
 
 const { controllersWrapper, HttpError, sendEmail } = require("../helpers");
 
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
-  const user = await User.findOne({ name });
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
 
   if (user) {
-    throw HttpError(409, "Name already exists");
+    throw HttpError(409, "Email already exists");
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
   const avatarURL = gravatar.url(email);
   const verificationToken = nanoid();
 
-  const newUser = await User.create({
+  await User.create({
     ...req.body,
     password: hashPassword,
     avatarURL,
     verificationToken,
   });
 
+  const verifyEmail = {
+    to: email,
+    subject: "Verify email",
+    html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${verificationToken}">Click verify email</a>`,
+  };
+
+  await sendEmail(verifyEmail);
+
+  res.json({
+    message: "Verify email send success",
+  });
+};
+
+const verifyEmail = async (req, res) => {
+  const { verificationToken } = req.params;
+  const user = await User.findOne({ verificationToken });
+  if (!user) {
+    throw HttpError(401, "Email not found");
+  }
+  await User.findByIdAndUpdate(user._id, {
+    verify: true,
+    verificationToken: "",
+  });
+
   const payload = {
-    id: newUser._id,
+    _id: user._id,
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
-  await User.findByIdAndUpdate(newUser._id, { token });
-
-  const mail = {
-    to: email,
-    subject: "subscribe to news ",
-    html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${token}">Click to subscribe "So Yummy"</a>`,
-  };
-  await sendEmail(mail);
+  await User.findByIdAndUpdate(user._id, { token });
 
   res.status(201).json({
     token,
     user: {
-      id: newUser._id,
-      name: newUser.name,
-      email: newUser.email,
-      password: newUser.password,
-      avatarURL,
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      avatarURL: user.avatarURL,
     },
+  });
+};
+
+const resendVerifyEmail = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw HttpError(401, "Email not found");
+  }
+  if (user.verify) {
+    throw HttpError(401, "Email already verify");
+  }
+
+  const verifyEmail = {
+    to: email,
+    subject: "Verify email",
+    html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${user.verificationToken}">Click verify email</a>`,
+  };
+
+  await sendEmail(verifyEmail);
+
+  res.json({
+    message: "Verify email send success",
   });
 };
 
@@ -63,9 +101,9 @@ const login = async (req, res) => {
     throw HttpError(401, "Email or password is wrong");
   }
 
-  // if (!user.verify) {
-  //   throw HttpError(401, "Email not verified");
-  // }
+  if (!user.verify) {
+    throw HttpError(401, "Email not verified");
+  }
 
   const passwordCompare = await bcrypt.compare(password, user.password);
   if (!passwordCompare) {
@@ -87,17 +125,17 @@ const login = async (req, res) => {
   });
 };
 
-const update = async (req, res) => {
+const updateAvatar = async (req, res) => {
   const { _id, name } = req.body;
-  const newAvatarUrl = req.file.path;
-  if (!name) {
-    await User.findByIdAndUpdate(_id, {
-      avatarURL: newAvatarUrl,
-    });
-    res.json({
-      newAvatarUrl,
-    });
-  }
+  const { filename } = req.file;
+
+  const newAvatarUrl = cloudinary.url(filename, {
+    gravity: "faces",
+    width: 250,
+    height: 250,
+    crop: "fill",
+  });
+
   await User.findByIdAndUpdate(_id, { avatarURL: newAvatarUrl, name });
   res.json({
     name,
@@ -138,8 +176,10 @@ const updateSubscription = async (req, res) => {
 
 module.exports = {
   register: controllersWrapper(register),
+  verifyEmail: controllersWrapper(verifyEmail),
+  resendVerifyEmail: controllersWrapper(resendVerifyEmail),
   login: controllersWrapper(login),
-  update: controllersWrapper(update),
+  updateAvatar: controllersWrapper(updateAvatar),
   getCurrent: controllersWrapper(getCurrent),
   logout: controllersWrapper(logout),
   updateSubscription: controllersWrapper(updateSubscription),
