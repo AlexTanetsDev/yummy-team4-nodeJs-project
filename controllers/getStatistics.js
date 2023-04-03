@@ -17,3 +17,8 @@ const getUserStatistics = async (req, res) => {
 };
 
 module.exports = controllersWrapper(getUserStatistics)
+
+function convertMS(milliseconds) {
+    const days = Math.floor(milliseconds / (1000 * 60 * 60 * 24));
+    return days;
+}
