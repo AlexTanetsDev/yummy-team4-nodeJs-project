@@ -4,6 +4,9 @@ const { handleMongooseError } = require("../helpers");
 
 const subscriptionList = ["subscribe", "unsubscribe"];
 
+const emailPattern =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 const userSchema = new Schema(
   {
     name: {
@@ -12,11 +15,13 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
+      match: emailPattern,
       required: [true, "Email is required"],
       unique: true,
     },
     password: {
       type: String,
+      minlength: 6,
       required: [true, "Set password for user"],
     },
     token: {
@@ -50,20 +55,49 @@ const userSchema = new Schema(
 userSchema.post("save", handleMongooseError);
 
 const registerSchema = Joi.object({
-  name: Joi.string().required(),
-  password: Joi.string().required(),
-  email: Joi.string().required(),
+  name: Joi.string().required().messages({
+    "string.base": `Password should be a type of 'text'`,
+    "string.empty": `Password cannot be an empty field`,
+    "any.required": `Password is a required field`,
+  }),
+  password: Joi.string().min(6).required().messages({
+    "string.base": `Password should be a type of 'text'`,
+    "string.empty": `Password cannot be an empty field`,
+    "string.min": `Password should have a minimum length of 6`,
+    "any.required": `Password is a required field`,
+  }),
+  email: Joi.string().pattern(emailPattern).required().messages({
+    "string.base": `Email should be a type of 'text'`,
+    "string.empty": `Email cannot be an empty field`,
+    "string.pattern.base": `Email  fails to match the required pattern example@mial.com`,
+    "any.required": `Email is a required field`,
+  }),
 });
 
 const loginSchema = Joi.object({
-  password: Joi.string().required(),
-  email: Joi.string().required(),
+  password: Joi.string().min(6).required().messages({
+    "string.base": `Password should be a type of 'text'`,
+    "string.empty": `Password cannot be an empty field`,
+    "string.min": `Password should have a minimum length of 6`,
+    "any.required": `Password is a required field`,
+  }),
+  email: Joi.string().pattern(emailPattern).required().messages({
+    "string.base": `Email should be a type of 'text'`,
+    "string.empty": `Email cannot be an empty field`,
+    "string.pattern.base": `Email  fails to match the required pattern example@mial.com`,
+    "any.required": `Email is a required field`,
+  }),
 });
 
 const updateSubscriptionSchema = Joi.object({
   subscription: Joi.string()
     .required()
-    .valid(...subscriptionList),
+    .valid(...subscriptionList)
+    .messages({
+      "string.base": `Subscription should be a type of 'text'`,
+      "string.empty": `Subscription cannot be an empty field`,
+      "any.required": `Subscription is a required field`,
+    }),
 });
 
 const schemas = {

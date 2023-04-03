@@ -6,17 +6,18 @@ const gravatar = require("gravatar");
 // const fs = require("fs/promises");
 const { nanoid } = require("nanoid");
 const { User } = require("../models/user");
+const cloudinary = require("cloudinary").v2;
 
-const { SECRET_KEY } = process.env;
+const { SECRET_KEY, BASE_URL } = process.env;
 
 const { controllersWrapper, HttpError, sendEmail } = require("../helpers");
 
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
-  const user = await User.findOne({ name });
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
 
   if (user) {
-    throw HttpError(409, "Name already exists");
+    throw HttpError(409, "Email already exists");
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
@@ -87,17 +88,17 @@ const login = async (req, res) => {
   });
 };
 
-const update = async (req, res) => {
+const updateAvatar = async (req, res) => {
   const { _id, name } = req.body;
-  const newAvatarUrl = req.file.path;
-  if (!name) {
-    await User.findByIdAndUpdate(_id, {
-      avatarURL: newAvatarUrl,
-    });
-    res.json({
-      newAvatarUrl,
-    });
-  }
+  const { filename } = req.file;
+
+  const newAvatarUrl = cloudinary.url(filename, {
+    gravity: "faces",
+    width: 250,
+    height: 250,
+    crop: "fill",
+  });
+
   await User.findByIdAndUpdate(_id, { avatarURL: newAvatarUrl, name });
   res.json({
     name,
@@ -139,7 +140,7 @@ const updateSubscription = async (req, res) => {
 module.exports = {
   register: controllersWrapper(register),
   login: controllersWrapper(login),
-  update: controllersWrapper(update),
+  updateAvatar: controllersWrapper(updateAvatar),
   getCurrent: controllersWrapper(getCurrent),
   logout: controllersWrapper(logout),
   updateSubscription: controllersWrapper(updateSubscription),

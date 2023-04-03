@@ -14,7 +14,7 @@ router.post(
   "/update",
   authentificate,
   uploadCloud.single("avatar"),
-  ctrl.update
+  ctrl.updateAvatar
 );
 router.get("/current", authentificate, ctrl.getCurrent);
 router.post("/logout", authentificate, ctrl.logout);
