@@ -22,7 +22,6 @@ const recipeSchema = new Schema(
     },
     thumb: {
       type: String,
-      // required: [true, "Thumb is required"],
     },
     preview: {
       type: String,
@@ -58,17 +57,31 @@ const recipeSchema = new Schema(
 recipeSchema.post("save", handleMongooseError);
 
 const recipe = Joi.object({
-  title: Joi.string().required(),
-  category: Joi.string().required(),
-  description: Joi.string().required(),
-  instructions: Joi.string().required(),
-  time: Joi.string().required(),
+  title: Joi.string()
+    .required()
+    .messages({ "any.required": "missing field title" }),
+  category: Joi.string()
+    .required()
+    .messages({ "any.required": "missing field category" }),
+  description: Joi.string()
+    .required()
+    .messages({ "any.required": "missing field description" }),
+  instructions: Joi.string()
+    .required()
+    .messages({ "any.required": "missing field category" }),
+  time: Joi.string()
+    .required()
+    .messages({ "any.required": "missing field category" }),
   thumb: Joi.string(),
   preview: Joi.string(),
   ingredients: Joi.array().items(
     Joi.object({
-      id: Joi.string().required(),
-      measure: Joi.string().required(),
+      id: Joi.string()
+        .required()
+        .messages({ "any.required": "missing field ingredients id" }),
+      measure: Joi.string()
+        .required()
+        .messages({ "any.required": "missing field ingredients measure" }),
     })
   ),
 });

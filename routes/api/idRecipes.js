@@ -3,6 +3,17 @@ const ctrl = require("../../controllers/idRecipes");
 const { authentificate, isValidId } = require("../../middlewares");
 const router = express.Router();
 
-router.get("/:recipeId", authentificate, isValidId, ctrl.getById);
+
+const ctrlCategory = require("../../controllers/getCategoriesRecepies");
+const controllersWrapper = require("../../helpers/controllersWrapper");
+
+router.get(
+  "/:category",
+  authentificate,
+  controllersWrapper(ctrlCategory.getCategoriesRecepies)
+);
+
+router.get("/:id", authentificate, isValidId, ctrl.getById);
+
 
 module.exports = router;

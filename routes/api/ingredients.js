@@ -2,17 +2,10 @@ const express = require("express");
 
 const ctrl = require("../../controllers/ingredients");
 
-const { validateBody, authentificate } = require("../../middlewares");
-
-const { schemas } = require("../../models/ingredient");
+const { authentificate } = require("../../middlewares");
 
 const router = express.Router();
 
-router.get(
-  "/",
-  authentificate,
-  validateBody(schemas.getIngredientSchema),
-  ctrl.ingredientRecipes
-);
+router.get("/", authentificate, ctrl.ingredientRecipes);
 
 module.exports = router;
