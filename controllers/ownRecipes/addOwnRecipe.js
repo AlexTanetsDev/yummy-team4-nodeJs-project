@@ -1,6 +1,6 @@
 const { Recipe } = require("../../models/recipe");
 
-const addOwnRecipes = async (req, res, next) => {
+const addOwnRecipe = async (req, res, next) => {
   const { _id } = req.user;
 
   let recipeImageUrl =
@@ -22,4 +22,4 @@ const addOwnRecipes = async (req, res, next) => {
   });
 };
 
-module.exports = addOwnRecipes;
+module.exports = addOwnRecipe;

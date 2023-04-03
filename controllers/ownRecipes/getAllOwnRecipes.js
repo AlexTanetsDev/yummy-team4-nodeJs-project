@@ -8,7 +8,7 @@ const getAllOwnRecipes = async (req, res, next) => {
 
   const searchParams = { author: _id };
 
-  const allOwnRecipes = await Recipe.find(searchParams, "", {
+  const allOwnRecipes = await Recipe.find(searchParams, "-likes -tags", {
     skip,
     limit,
   });
