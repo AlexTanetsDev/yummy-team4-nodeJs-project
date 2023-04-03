@@ -8,6 +8,8 @@ const {
 const { schemas } = require("../../models/user");
 const router = express.Router();
 
+const getUserStatistics = require('../../controllers/getStatistics')
+
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
 router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 router.post(
@@ -25,4 +27,6 @@ router.patch(
   validateBody(schemas.updateSubscriptionSchema),
   ctrl.updateSubscription
 );
+
+router.get('/statistics', authentificate, getUserStatistics)
 module.exports = router;
