@@ -9,6 +9,7 @@ const {
 const { schemas } = require("../../models/user");
 const router = express.Router();
 
+
 /**
  * @swagger
  * /register:
@@ -19,6 +20,16 @@ const router = express.Router();
  *         description: Success
  */
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
+
+const getUserStatistics = require('../../controllers/getStatistics')
+
+router.get("/verify/:verificationToken", ctrl.verifyEmail);
+router.post(
+  "/verify",
+  validateBody(schemas.emailSchema),
+  ctrl.resendVerifyEmail
+);
+
 /**
  * @swagger
  * /login:
@@ -42,7 +53,7 @@ router.post(
   "/update",
   authentificate,
   uploadCloud.single("avatar"),
-  ctrl.update
+  ctrl.updateAvatar
 );
 /**
  * @swagger
@@ -64,5 +75,9 @@ router.get("/current", authentificate, ctrl.getCurrent);
  *         description: Success
  */
 router.post("/logout", authentificate, ctrl.logout);
+
+
+
+router.get('/statistics', authentificate, getUserStatistics)
 
 module.exports = router;
