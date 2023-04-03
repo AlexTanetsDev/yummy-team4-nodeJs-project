@@ -33,7 +33,7 @@ const recipeSchema = new Schema(
     popularity: {
       type: Number,
     },
-    favorites: [Schema.Types.ObjectId],
+    favorites: [{ type: Schema.Types.ObjectId, ref: "user" }],
     likes: [Schema.Types.ObjectId],
     youtube: {
       type: String,
