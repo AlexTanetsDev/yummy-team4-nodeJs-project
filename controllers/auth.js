@@ -7,9 +7,9 @@ const gravatar = require("gravatar");
 const { nanoid } = require("nanoid");
 const { User } = require("../models/user");
 
-const { SECRET_KEY, BASE_URL } = process.env;
+const { SECRET_KEY } = process.env;
 
-const { controllersWrapper, HttpError, sendEmail } = require("../helpers");
+const { controllersWrapper, HttpError } = require("../helpers");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -36,13 +36,6 @@ const register = async (req, res) => {
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
   await User.findByIdAndUpdate(newUser._id, { token });
-
-  const mail = {
-    to: email,
-    subject: "subscribe to news ",
-    html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${token}">Click to subscribe "So Yummy"</a>`,
-  };
-  await sendEmail(mail);
 
   res.status(201).json({
     token,
@@ -118,29 +111,10 @@ const logout = async (req, res) => {
   res.status(204).json();
 };
 
-/* Subscription */
-const updateSubscription = async (req, res) => {
-  const { _id } = req.user;
-  const { subscription } = req.body;
-
-  const updatedUser = await User.findByIdAndUpdate(
-    _id,
-    { subscription },
-    {
-      new: true,
-    }
-  );
-
-  res.json({
-    data: updatedUser,
-  });
-};
-
 module.exports = {
   register: controllersWrapper(register),
   login: controllersWrapper(login),
   update: controllersWrapper(update),
   getCurrent: controllersWrapper(getCurrent),
   logout: controllersWrapper(logout),
-  updateSubscription: controllersWrapper(updateSubscription),
 };
