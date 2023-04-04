@@ -4,6 +4,24 @@ const { validateBody, authentificate } = require("../../../middlewares");
 const { schemas } = require("../../../models/user");
 const ctrl = require("../../../controllers/subscribe/subscribe");
 
+/**
+ * @swagger
+ * tags:
+ *   - name: Subscribe
+ *     description: subscribe news
+ */
+
+/**
+ * @swagger
+ * /api/subscribe/subscribe:
+ *   post:
+ *     description: product
+ *     tags: [Subscribe]
+ *     responses:
+ *       200:
+ *         description: Success
+ */
+
 router.post(
   "/subscribe",
   authentificate,

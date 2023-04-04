@@ -11,7 +11,29 @@ const { schemas } = require("../../../models/recipe");
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /api/ownRecipes:
+ *   get:
+ *     description: Own recipes
+ *     tags: [Recipes]
+ *     responses:
+ *       200:
+ *         description: Success
+ */
+
 router.get("/", authentificate, ctrl.getAllOwnRecipes);
+
+/**
+ * @swagger
+ * /api/ownRecipes:
+ *   post:
+ *     description: add own recipe
+ *     tags: [Recipes]
+ *     responses:
+ *       200:
+ *         description: Success
+ */
 router.post(
   "/",
   authentificate,
@@ -19,6 +41,17 @@ router.post(
   validateBody(schemas.recipe),
   ctrl.addOwnRecipe
 );
+
+/**
+ * @swagger
+ * /api/ownRecipes:
+ *   delete:
+ *     description: delete own recipe
+ *     tags: [Recipes]
+ *     responses:
+ *       200:
+ *         description: Success
+ */
 router.delete("/", authentificate, ctrl.removeOwnRecipe);
 
 module.exports = router;

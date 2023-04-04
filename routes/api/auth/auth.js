@@ -8,19 +8,45 @@ const {
 } = require("../../../middlewares");
 const { schemas } = require("../../../models/user");
 const router = express.Router();
+/**
+ * @swagger
+ * tags:
+ *   - name: Auth
+ *     description: user authorisation
+ */
 
 /**
  * @swagger
  * /register:
  *   post:
  *     description: register new User
+ *     tags: [Auth]
  *     responses:
  *       200:
  *         description: Success
  */
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
-
+/**
+ * @swagger
+ * /verify:
+ *   get:
+ *     description: verefication token
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: Success
+ */
 router.get("/verify/:verificationToken", ctrl.verifyEmail);
+/**
+ * @swagger
+ * /verify/:verificationToken:
+ *   post:
+ *     description: verefication
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: Success
+ */
 router.post(
   "/verify",
   validateBody(schemas.emailSchema),
@@ -32,6 +58,7 @@ router.post(
  * /login:
  *   post:
  *     description: login already registered User
+ *     tags: [Auth]
  *     responses:
  *       200:
  *         description: Success
@@ -40,8 +67,9 @@ router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 /**
  * @swagger
  * /update:
- *   post:
+ *   patch:
  *     description: update info
+ *     tags: [Auth]
  *     responses:
  *       200:
  *         description: Success
@@ -57,6 +85,7 @@ router.patch(
  * /current:
  *   get:
  *     description: current User info
+ *     tags: [Auth]
  *     responses:
  *       200:
  *         description: Success
@@ -66,7 +95,8 @@ router.get("/current", authentificate, ctrl.getCurrent);
  * @swagger
  * /logout:
  *   post:
- *     description: current User info
+ *     description: logout
+ *     tags: [Auth]
  *     responses:
  *       200:
  *         description: Success

@@ -3,6 +3,7 @@ const path = require("path");
 const categoryListPath = path.join(
   __dirname,
   "..",
+  "..",
   "StaticData",
   "categoryList.json"
 );
