@@ -4,8 +4,8 @@ const { validateBody, authentificate } = require("../../../middlewares");
 const { schemas } = require("../../../models/user");
 const ctrl = require("../../../controllers/subscribe/subscribe");
 
-router.post(
-  "/subscribe",
+router.patch(
+  "/",
   authentificate,
   validateBody(schemas.updateSubscriptionSchema),
   ctrl.updateSubscription
