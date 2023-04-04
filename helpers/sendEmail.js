@@ -5,14 +5,19 @@ const { SENDGRID_API_KEY } = process.env;
 
 sgMail.setApiKey(SENDGRID_API_KEY);
 
-const sendEmail = async (data) => {
+async function sendEmail(email) {
   try {
-    const email = { ...data, from: "alexTanetsDev@gmail.com" };
-    await sgMail.send(email);
-    return true;
+    const mail = {
+      // to: email,
+      to: "kovalchuk.anastasia0612@gmail.com",
+      from: "alexTanetsDev@gmail.com",
+      subject: "subscribe to news ",
+      html: `<a target="_blank" href="${BASE_URL}/api/">Click to subscribe "So Yummy"</a>`,
+    };
+    await sgMail.send(mail);
   } catch (error) {
-    return error;
+    console.error(error);
   }
-};
+}
 
 module.exports = sendEmail;

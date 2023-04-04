@@ -5,9 +5,9 @@ const { nanoid } = require("nanoid");
 const { User } = require("../models/user");
 const cloudinary = require("cloudinary").v2;
 
-const { SECRET_KEY, BASE_URL } = process.env;
+const { SECRET_KEY } = process.env;
 
-const { controllersWrapper, HttpError, sendEmail } = require("../helpers");
+const { controllersWrapper, HttpError } = require("../helpers");
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -36,6 +36,8 @@ const register = async (req, res) => {
 
   await sendEmail(verifyEmail);
 
+
+
   res.json({
     message: "Verify email send success",
   });
@@ -58,6 +60,7 @@ const verifyEmail = async (req, res) => {
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
   await User.findByIdAndUpdate(user._id, { token });
+
 
   res.status(201).json({
     token,
@@ -156,24 +159,6 @@ const logout = async (req, res) => {
   res.status(204).json();
 };
 
-/* Subscription */
-const updateSubscription = async (req, res) => {
-  const { _id } = req.user;
-  const { subscription } = req.body;
-
-  const updatedUser = await User.findByIdAndUpdate(
-    _id,
-    { subscription },
-    {
-      new: true,
-    }
-  );
-
-  res.json({
-    data: updatedUser,
-  });
-};
-
 module.exports = {
   register: controllersWrapper(register),
   verifyEmail: controllersWrapper(verifyEmail),
@@ -182,5 +167,4 @@ module.exports = {
   updateAvatar: controllersWrapper(updateAvatar),
   getCurrent: controllersWrapper(getCurrent),
   logout: controllersWrapper(logout),
-  updateSubscription: controllersWrapper(updateSubscription),
 };
