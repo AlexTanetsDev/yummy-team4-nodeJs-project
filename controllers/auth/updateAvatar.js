@@ -1,5 +1,4 @@
 const { User } = require("../../models/user");
-const { HttpError } = require("../../helpers");
 const cloudinary = require("cloudinary").v2;
 
 const updateAvatar = async (req, res) => {
