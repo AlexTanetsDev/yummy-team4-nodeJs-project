@@ -7,19 +7,19 @@ const swaggerJsDog = require("swagger-jsdoc");
 
 // const swaggerDocument = require("./swagger.json");
 
-const authRouter = require("./routes/api/auth");
-const subscribeRouter = require("./routes/api/subscribe");
-const ownRecepesRouter = require("./routes/api/ownRecipes");
-const mainPageRecipesRouter = require("./routes/api/mainPageRecipes");
-const categoryList = require("./routes/api/categoryList");
+const authRouter = require("./routes/api/auth/auth");
+const subscribeRouter = require("./routes/api/userSubscribe/subscribe");
+const ownRecepesRouter = require("./routes/api/recipes/ownRecipes");
+const mainPageRecipesRouter = require("./routes/api/recipes/ownRecipes");
+const categoryList = require("./routes/api/cotegoriesList/categoryList");
 
-const ingredientList = require("./routes/api/ingredientList");
-const product = require("./routes/api/product");
-const ingredientsRouter = require("./routes/api/ingredients");
-const idRecipesRouter = require("./routes/api/idRecipes");
-const favoriteRouter = require("./routes/api/favorite");
-const searchRouter = require("./routes/api/search");
-const popularRecipeRouter = require("./routes/api/popularRecipe");
+const ingredientList = require("./routes/api/ingredients/ingredientList");
+const product = require("./routes/api/shoppingList/product");
+const ingredientsRouter = require("./routes/api/ingredients/ingredients");
+const idRecipesRouter = require("./routes/api/recipes/getRecipesByIdOrCategorie");
+const favoriteRouter = require("./routes/api/recipes/favorite");
+const searchRouter = require("./routes/api/recipes/searchRecipe");
+const popularRecipeRouter = require("./routes/api/recipes/popularRecipe");
 
 const app = express();
 
