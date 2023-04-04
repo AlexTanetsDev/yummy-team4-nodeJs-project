@@ -10,7 +10,7 @@ const swaggerJsDog = require("swagger-jsdoc");
 const authRouter = require("./routes/api/auth/auth");
 const subscribeRouter = require("./routes/api/userSubscribe/subscribe");
 const ownRecepesRouter = require("./routes/api/recipes/ownRecipes");
-const mainPageRecipesRouter = require("./routes/api/recipes/ownRecipes");
+const mainPageRecipesRouter = require("./routes/api/recipes/mainPageRecipes");
 const categoryList = require("./routes/api/cotegoriesList/categoryList");
 
 const ingredientList = require("./routes/api/ingredients/ingredientList");
