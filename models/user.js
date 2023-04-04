@@ -56,9 +56,9 @@ userSchema.post("save", handleMongooseError);
 
 const registerSchema = Joi.object({
   name: Joi.string().required().messages({
-    "string.base": `Password should be a type of 'text'`,
-    "string.empty": `Password cannot be an empty field`,
-    "any.required": `Password is a required field`,
+    "string.base": `Name should be a type of 'text'`,
+    "string.empty": `Name cannot be an empty field`,
+    "any.required": `Name is a required field`,
   }),
   password: Joi.string().min(6).required().messages({
     "string.base": `Password should be a type of 'text'`,
@@ -69,7 +69,7 @@ const registerSchema = Joi.object({
   email: Joi.string().pattern(emailPattern).required().messages({
     "string.base": `Email should be a type of 'text'`,
     "string.empty": `Email cannot be an empty field`,
-    "string.pattern.base": `Email  fails to match the required pattern example@mial.com`,
+    "string.pattern.base": `Email  fails to match the required pattern example@mail.com`,
     "any.required": `Email is a required field`,
   }),
 });
@@ -78,7 +78,7 @@ const emailSchema = Joi.object({
   email: Joi.string().pattern(emailPattern).required().messages({
     "string.base": `Email should be a type of 'text'`,
     "string.empty": `Email cannot be an empty field`,
-    "string.pattern.base": `Email  fails to match the required pattern example@mial.com`,
+    "string.pattern.base": `Email  fails to match the required pattern example@mail.com`,
     "any.required": `Email is a required field`,
   }),
 });
@@ -93,7 +93,7 @@ const loginSchema = Joi.object({
   email: Joi.string().pattern(emailPattern).required().messages({
     "string.base": `Email should be a type of 'text'`,
     "string.empty": `Email cannot be an empty field`,
-    "string.pattern.base": `Email  fails to match the required pattern example@mial.com`,
+    "string.pattern.base": `Email  fails to match the required pattern example@mail.com`,
     "any.required": `Email is a required field`,
   }),
 });
@@ -110,8 +110,8 @@ const updateSubscriptionSchema = Joi.object({
 });
 
 const schemas = {
-	registerSchema,
-	emailSchema,
+  registerSchema,
+  emailSchema,
   loginSchema,
   updateSubscriptionSchema,
 };
