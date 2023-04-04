@@ -26,7 +26,7 @@ const app = express();
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: "API docementation So Yummy",
+      title: "API documentation So Yummy",
       version: "1.0.0.0",
     },
   },
@@ -57,6 +57,7 @@ app.use("/api/search", searchRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use((req, res) => {
+  console.log(404, req.originalUrl);
   res.status(404).json({ message: "Not found" });
 });
 

@@ -2,8 +2,8 @@ const express = require("express");
 
 const ctrl = require("../../../controllers/auth");
 const {
-  validateBody,
   authentificate,
+  validateBody,
   uploadCloud,
 } = require("../../../middlewares");
 const { schemas } = require("../../../models/user");
@@ -46,7 +46,7 @@ router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
  *       200:
  *         description: Success
  */
-router.post(
+router.patch(
   "/update",
   authentificate,
   uploadCloud.single("avatar"),

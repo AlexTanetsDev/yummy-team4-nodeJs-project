@@ -2,6 +2,8 @@ const { User } = require("../../models/user");
 
 const { controllersWrapper, sendEmail } = require("../../helpers");
 
+const { BASE_URL } = process.env;
+
 const updateSubscription = async (req, res) => {
   const { _id } = req.user;
   const { subscription, email } = req.body;
@@ -18,7 +20,17 @@ const updateSubscription = async (req, res) => {
     data: updatedUser,
   });
   if (subscription === "subscribe") {
-    sendEmail(email);
+    try {
+      const subscribeEmail = {
+        to: email,
+        subject: "subscribe to news ",
+        html: `<a target="_blank" href="${BASE_URL}/api/">Click to subscribe "So Yummy"</a>`,
+      };
+
+      await sendEmail(subscribeEmail);
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
 
