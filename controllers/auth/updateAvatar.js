@@ -4,17 +4,18 @@ const cloudinary = require("cloudinary").v2;
 const updateAvatar = async (req, res) => {
   const { _id } = req.user;
   const { name } = req.body;
-  const { filename } = req.file;
-
-  const fields = {
-    avatarUrl: cloudinary.url(filename, {
-      gravity: "faces",
-      width: 250,
-      height: 250,
-      crop: "fill",
-    }),
-  };
-
+  let fields = {};
+  if (req.file) {
+    const { filename } = req.file;
+    fields = {
+      avatarUrl: cloudinary.url(filename, {
+        gravity: "faces",
+        width: 250,
+        height: 250,
+        crop: "fill",
+      }),
+    };
+  }
   if (name) {
     fields.name = name;
   }
