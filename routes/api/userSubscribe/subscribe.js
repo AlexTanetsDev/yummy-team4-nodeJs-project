@@ -13,7 +13,7 @@ const ctrl = require("../../../controllers/subscribe/subscribe");
 
 /**
  * @swagger
- * /api/subscribe/subscribe:
+ * /api/subscribe:
  *   post:
  *     description: product
  *     tags: [Subscribe]
@@ -22,8 +22,8 @@ const ctrl = require("../../../controllers/subscribe/subscribe");
  *         description: Success
  */
 
-router.post(
-  "/subscribe",
+router.patch(
+  "/",
   authentificate,
   validateBody(schemas.updateSubscriptionSchema),
   ctrl.updateSubscription
