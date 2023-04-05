@@ -5,7 +5,8 @@ const fs = require("fs/promises");
 const path = require("path");
 const categoryListPath = path.join(
   __dirname,
-  "..","..",
+  "..",
+  "..",
   "StaticData",
   "categoryList.json"
 );
@@ -29,7 +30,7 @@ const getMainPageRecipes = async (req, res) => {
   const result = category.map((item) => {
     return {
       category: item,
-      recipec: recipesList.filter((dish) => dish.category === item),
+      recipes: recipesList.filter((dish) => dish.category === item),
     };
   });
 
