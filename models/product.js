@@ -1,22 +1,31 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
-const productSchema = new Schema({
-  title: {
-    type: String,
-  },
-  quantity: {
-    type: String,
-  },
+const productSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    quantity: {
+      type: String,
+      required: true,
+    },
 
-  thumb: {
-    type: String,
+    thumb: {
+      type: String,
+      required: true,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
   },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "user",
-  },
-});
+  {
+    versionKey: false,
+    timestamps: true,
+  }
+);
 
 const product = Joi.object({
   title: Joi.string().required(),

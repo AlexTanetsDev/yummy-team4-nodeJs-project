@@ -17,7 +17,7 @@ const { schemas } = require("../../../models/product");
 
 /**
  * @swagger
- * /api/shoping-list:
+ * /api/shopping-list:
  *   get:
  *     description: product
  *     tags: [Shopping List]
@@ -26,11 +26,11 @@ const { schemas } = require("../../../models/product");
  *         description: Success
  */
 
-router.get("/", authentificate, ctrl.getProductList);
+router.get("/", authentificate, ctrl.getProductsList);
 
 /**
  * @swagger
- * /api/shoping-list:
+ * /api/shopping-list:
  *   post:
  *     description: add product
  *     tags: [Shopping List]

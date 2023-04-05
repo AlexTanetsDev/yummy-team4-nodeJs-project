@@ -11,10 +11,10 @@ const authRouter = require("./routes/api/auth/auth");
 const subscribeRouter = require("./routes/api/userSubscribe/subscribe");
 const ownRecepesRouter = require("./routes/api/recipes/ownRecipes");
 const mainPageRecipesRouter = require("./routes/api/recipes/mainPageRecipes");
-const categoryList = require("./routes/api/cotegoriesList/categoryList");
+const categoryListRouter = require("./routes/api/categoryList/categoryList");
 
-const ingredientList = require("./routes/api/ingredients/ingredientList");
-const product = require("./routes/api/shoppingList/product");
+const ingredientsListRouter = require("./routes/api/ingredients/ingredientsList");
+const productsRouter = require("./routes/api/shoppingList/products");
 const ingredientsRouter = require("./routes/api/ingredients/ingredients");
 const idRecipesRouter = require("./routes/api/recipes/getRecipesByIdOrCategorie");
 const favoriteRouter = require("./routes/api/recipes/favorite");
@@ -33,7 +33,7 @@ const swaggerOptions = {
   apis: [
     "app.js",
     "./routes/api/auth/*.js",
-    "./routes/api/cotegoriesList/*.js",
+    "./routes/api/categoryList/*.js",
     "./routes/api/ingredients/*.js",
     "./routes/api/recipes/*.js",
     "./routes/api/shoppingList/*.js",
@@ -54,9 +54,9 @@ app.use("/api/users", authRouter);
 app.use("/api/subscribe", subscribeRouter);
 app.use("/api/ownRecipes", ownRecepesRouter);
 app.use("/api/recipes/main-page", mainPageRecipesRouter);
-app.use("/api/category", categoryList);
-app.use("/api/ingredients/list", ingredientList);
-app.use("/api/shoping-list", product);
+app.use("/api/category-list", categoryListRouter);
+app.use("/api/ingredients/list", ingredientsListRouter);
+app.use("/api/shopping-list", productsRouter);
 app.use("/api/popular-recipe", popularRecipeRouter);
 app.use("/api/ingredients", ingredientsRouter);
 app.use("/api/recipes", idRecipesRouter);

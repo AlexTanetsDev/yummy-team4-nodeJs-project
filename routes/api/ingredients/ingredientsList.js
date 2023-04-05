@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const ctrl = require("../../../controllers/ingredients/ingredientList");
+const ctrl = require("../../../controllers/ingredients/ingredientsList");
 
 const { authentificate } = require("../../../middlewares");
 
@@ -16,8 +16,8 @@ const { authentificate } = require("../../../middlewares");
  * @swagger
  * /api/ingredients/list:
  *   get:
- *     description: ingredientList
- *     tags: [Ingredients]
+ *     description: ingredientsList
+ *     tags: [ingredients]
  *     responses:
  *       200:
  *         description: Success
