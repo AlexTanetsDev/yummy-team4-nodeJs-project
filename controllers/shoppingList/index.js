@@ -1,11 +1,11 @@
 const { controllersWrapper } = require("../../helpers");
 
-const getProductList = require("./getProductList");
+const getProductsList = require("./getProductsList");
 const addProduct = require("./addProduct");
 const removeProduct = require("./removeProduct");
 
 module.exports = {
-  getProductList: controllersWrapper(getProductList),
+  getProductsList: controllersWrapper(getProductsList),
   addProduct: controllersWrapper(addProduct),
   removeProduct: controllersWrapper(removeProduct),
 };
