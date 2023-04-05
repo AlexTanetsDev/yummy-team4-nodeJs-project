@@ -17,7 +17,7 @@ const updateSubscription = async (req, res) => {
   );
 
   res.json({
-    data: updatedUser,
+    updatedUser,
   });
 
   try {

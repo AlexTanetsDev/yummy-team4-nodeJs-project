@@ -56,45 +56,45 @@ userSchema.post("save", handleMongooseError);
 
 const registerSchema = Joi.object({
   name: Joi.string().required().messages({
-    "string.base": `Name should be a type of 'text'`,
-    "string.empty": `Name cannot be an empty field`,
-    "any.required": `Name is a required field`,
+    "string.base": `name should be a type of 'text'`,
+    "string.empty": `name cannot be an empty field`,
+    "any.required": `name is a required field`,
   }),
   password: Joi.string().min(6).required().messages({
-    "string.base": `Password should be a type of 'text'`,
-    "string.empty": `Password cannot be an empty field`,
-    "string.min": `Password should have a minimum length of 6`,
-    "any.required": `Password is a required field`,
+    "string.base": `password should be a type of 'text'`,
+    "string.empty": `password cannot be an empty field`,
+    "string.min": `password should have a minimum length of 6`,
+    "any.required": `password is a required field`,
   }),
   email: Joi.string().pattern(emailPattern).required().messages({
-    "string.base": `Email should be a type of 'text'`,
-    "string.empty": `Email cannot be an empty field`,
-    "string.pattern.base": `Email  fails to match the required pattern example@mail.com`,
-    "any.required": `Email is a required field`,
+    "string.base": `email should be a type of 'text'`,
+    "string.empty": `email cannot be an empty field`,
+    "string.pattern.base": `email  fails to match the required pattern example@mail.com`,
+    "any.required": `email is a required field`,
   }),
 });
 
 const emailSchema = Joi.object({
   email: Joi.string().pattern(emailPattern).required().messages({
-    "string.base": `Email should be a type of 'text'`,
-    "string.empty": `Email cannot be an empty field`,
-    "string.pattern.base": `Email  fails to match the required pattern example@mail.com`,
-    "any.required": `Email is a required field`,
+    "string.base": `email should be a type of 'text'`,
+    "string.empty": `email cannot be an empty field`,
+    "string.pattern.base": `email  fails to match the required pattern example@mail.com`,
+    "any.required": `email is a required field`,
   }),
 });
 
 const loginSchema = Joi.object({
   password: Joi.string().min(6).required().messages({
-    "string.base": `Password should be a type of 'text'`,
-    "string.empty": `Password cannot be an empty field`,
-    "string.min": `Password should have a minimum length of 6`,
-    "any.required": `Password is a required field`,
+    "string.base": `password should be a type of 'text'`,
+    "string.empty": `password cannot be an empty field`,
+    "string.min": `password should have a minimum length of 6`,
+    "any.required": `password is a required field`,
   }),
   email: Joi.string().pattern(emailPattern).required().messages({
-    "string.base": `Email should be a type of 'text'`,
-    "string.empty": `Email cannot be an empty field`,
-    "string.pattern.base": `Email  fails to match the required pattern example@mail.com`,
-    "any.required": `Email is a required field`,
+    "string.base": `email should be a type of 'text'`,
+    "string.empty": `email cannot be an empty field`,
+    "string.pattern.base": `email  fails to match the required pattern example@mail.com`,
+    "any.required": `email is a required field`,
   }),
 });
 
@@ -103,10 +103,16 @@ const updateSubscriptionSchema = Joi.object({
     .required()
     .valid(...subscriptionList)
     .messages({
-      "string.base": `Subscription should be a type of 'text'`,
-      "string.empty": `Subscription cannot be an empty field`,
-      "any.required": `Subscription is a required field`,
+      "string.base": `subscription should be a type of 'text'`,
+      "string.empty": `subscription cannot be an empty field`,
+      "any.required": `subscription is a required field`,
     }),
+  email: Joi.string().pattern(emailPattern).required().messages({
+    "string.base": `email should be a type of 'text'`,
+    "string.empty": `email cannot be an empty field`,
+    "string.pattern.base": `email  fails to match the required pattern example@mail.com`,
+    "any.required": `email is a required field`,
+  }),
 });
 
 const schemas = {
