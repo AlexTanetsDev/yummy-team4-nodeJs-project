@@ -17,7 +17,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /register:
+ * /api/users/register:
  *   post:
  *     description: register new User
  *     tags: [Auth]
@@ -28,7 +28,7 @@ const router = express.Router();
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
 /**
  * @swagger
- * /verify:
+ * /api/users/verify:
  *   get:
  *     description: verefication token
  *     tags: [Auth]
@@ -39,7 +39,7 @@ router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
 router.get("/verify/:verificationToken", ctrl.verifyEmail);
 /**
  * @swagger
- * /verify/:verificationToken:
+ * /api/users/verify/:verificationToken:
  *   post:
  *     description: verefication
  *     tags: [Auth]
@@ -55,7 +55,7 @@ router.post(
 
 /**
  * @swagger
- * /login:
+ * /api/users/login:
  *   post:
  *     description: login already registered User
  *     tags: [Auth]
@@ -66,7 +66,7 @@ router.post(
 router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 /**
  * @swagger
- * /update:
+ * /api/users/update:
  *   patch:
  *     description: update info
  *     tags: [Auth]
@@ -82,7 +82,7 @@ router.patch(
 );
 /**
  * @swagger
- * /current:
+ * /api/users/current:
  *   get:
  *     description: current User info
  *     tags: [Auth]
@@ -93,7 +93,7 @@ router.patch(
 router.get("/current", authentificate, ctrl.getCurrent);
 /**
  * @swagger
- * /logout:
+ * /api/users/logout:
  *   post:
  *     description: logout
  *     tags: [Auth]

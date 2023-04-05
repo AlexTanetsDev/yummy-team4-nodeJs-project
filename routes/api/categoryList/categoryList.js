@@ -6,7 +6,7 @@ const ctrl = require("../../../controllers/categoryList");
 /**
  * @swagger
  * tags:
- *   - name: category-list
+ *   - name: Category-list
  *     description: recipe categoryList
  */
 
@@ -15,7 +15,7 @@ const ctrl = require("../../../controllers/categoryList");
  * /api/category-list:
  *   get:
  *     description: recipe categories
- *     tags: [categories]
+ *     tags: [Category-list]
  *     responses:
  *       200:
  *         description: Success
