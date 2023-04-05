@@ -13,7 +13,7 @@ const ownRecepesRouter = require("./routes/api/recipes/ownRecipes");
 const mainPageRecipesRouter = require("./routes/api/recipes/mainPageRecipes");
 const categoryListRouter = require("./routes/api/categoryList/categoryList");
 
-const ingredientList = require("./routes/api/ingredients/ingredientList");
+const ingredientsListRouter = require("./routes/api/ingredients/ingredientsList");
 const product = require("./routes/api/shoppingList/product");
 const ingredientsRouter = require("./routes/api/ingredients/ingredients");
 const idRecipesRouter = require("./routes/api/recipes/getRecipesByIdOrCategorie");
@@ -55,7 +55,7 @@ app.use("/api/subscribe", subscribeRouter);
 app.use("/api/ownRecipes", ownRecepesRouter);
 app.use("/api/recipes/main-page", mainPageRecipesRouter);
 app.use("/api/category-list", categoryListRouter);
-app.use("/api/ingredients/list", ingredientList);
+app.use("/api/ingredients/list", ingredientsListRouter);
 app.use("/api/shoping-list", product);
 app.use("/api/popular-recipe", popularRecipeRouter);
 app.use("/api/ingredients", ingredientsRouter);
