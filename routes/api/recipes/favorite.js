@@ -38,7 +38,7 @@ router.patch("/:recipeId", authentificate, ctrl.addFavoriteRecipe);
 /**
  * @swagger
  * /api/favorite/:recipeId:
- *   patch:
+ *   delete:
  *     description: delete recipe
  *     tags: [Recipes]
  *     responses:

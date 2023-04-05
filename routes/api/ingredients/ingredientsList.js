@@ -17,7 +17,7 @@ const { authentificate } = require("../../../middlewares");
  * /api/ingredients/list:
  *   get:
  *     description: ingredientsList
- *     tags: [ingredients]
+ *     tags: [Ingredients]
  *     responses:
  *       200:
  *         description: Success

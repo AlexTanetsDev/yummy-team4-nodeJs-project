@@ -15,7 +15,7 @@ const ctrl = require("../../../controllers/subscribe/subscribe");
  * @swagger
  * /api/subscribe:
  *   post:
- *     description: product
+ *     description: subscribe
  *     tags: [Subscribe]
  *     responses:
  *       200:

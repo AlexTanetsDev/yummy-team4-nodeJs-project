@@ -20,7 +20,7 @@ const router = express.Router();
 router.get("/title", authentificate, validateBody, ctrl.searchRecipesByTitle);
 /**
  * @swagger
- * /api/ingredient:
+ * /api/search/ingredient:
  *   get:
  *     description: search recipes by ingredient
  *     tags: [Recipes]
