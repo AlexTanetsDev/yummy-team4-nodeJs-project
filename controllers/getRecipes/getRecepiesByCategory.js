@@ -7,10 +7,14 @@ const getRecepiesByCategory = async (req, res) => {
   const { page = 1, limit = 8 } = req.query;
   const skip = (page - 1) * limit;
 
-  const categoryRecipes = await Recipe.find({ category }, " ", {
-    skip,
-    limit: Number(limit),
-  });
+  const categoryRecipes = await Recipe.find(
+    { category },
+    "-updatedAt -createdAt",
+    {
+      skip,
+      limit,
+    }
+  );
   if (!categoryRecipes) {
     throw HttpError(404, "Not found");
   }
