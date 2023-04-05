@@ -71,7 +71,7 @@ const recipe = Joi.object({
     .messages({ "any.required": "missing field category" }),
   time: Joi.string()
     .required()
-    .messages({ "any.required": "missing field category" }),
+    .messages({ "any.required": "missing field time" }),
   thumb: Joi.string(),
   preview: Joi.string(),
   ingredients: Joi.array().items(
