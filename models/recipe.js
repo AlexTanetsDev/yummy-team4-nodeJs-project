@@ -12,13 +12,9 @@ const recipeSchema = new Schema(
       type: String,
       required: [true, "Category is required"],
     },
-    area: {
-      type: String,
-    },
     instructions: {
       type: String,
       required: [true, "Instructions is required"],
-      //   default: "",
     },
     description: {
       type: String,
@@ -37,14 +33,14 @@ const recipeSchema = new Schema(
     popularity: {
       type: Number,
     },
-    favorites: [Schema.Types.ObjectId],
+    favorites: [{ type: Schema.Types.ObjectId, ref: "user" }],
     likes: [Schema.Types.ObjectId],
     youtube: {
       type: String,
     },
-    tags: [],
+    tags: [String],
     ingredients: {
-      type: [{ id: String, measure: String }],
+      type: [{ id: Schema.Types.ObjectId, measure: String }],
       required: [true, "Ingredients is required"],
     },
     author: {
@@ -52,7 +48,6 @@ const recipeSchema = new Schema(
       ref: "user",
     },
   },
-
   {
     versionKey: false,
     timestamps: true,
@@ -62,17 +57,33 @@ const recipeSchema = new Schema(
 recipeSchema.post("save", handleMongooseError);
 
 const recipe = Joi.object({
-  title: Joi.string().required(),
-  category: Joi.string().required(),
-  description: Joi.string().required(),
-  instructions: Joi.string().required(),
-  time: Joi.string().required(),
+  title: Joi.string()
+    .required()
+    .messages({ "any.required": "missing field title" }),
+  category: Joi.string()
+    .required()
+    .messages({ "any.required": "missing field category" }),
+  description: Joi.string()
+    .required()
+    .messages({ "any.required": "missing field description" }),
+  instructions: Joi.string()
+    .required()
+    .messages({ "any.required": "missing field category" }),
+  time: Joi.string()
+    .required()
+    .messages({ "any.required": "missing field category" }),
   thumb: Joi.string(),
   preview: Joi.string(),
-  ingredients: Joi.array().items({
-    id: Joi.string().required(),
-    measure: Joi.string().required(),
-  }),
+  ingredients: Joi.array().items(
+    Joi.object({
+      id: Joi.string()
+        .required()
+        .messages({ "any.required": "missing field ingredients id" }),
+      measure: Joi.string()
+        .required()
+        .messages({ "any.required": "missing field ingredients measure" }),
+    })
+  ),
 });
 
 const schemas = {
