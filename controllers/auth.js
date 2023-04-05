@@ -120,27 +120,64 @@ const login = async (req, res) => {
     token,
     user: {
       email: user.email,
-      // subscription: user.subscription,
     },
   });
 };
 
+// const updateAvatar = async (req, res) => {
+// const { _id, name } = req.body;
+
+// const { _id, name, avatarURL = null } = req.body;
+// console.log(avatarURL);
+// if (!req.body.avatar) {
+//   await User.findByIdAndUpdate(_id, { name });
+//   res.json({
+//     name,
+//     avatarURL,
+//   });
+// }
+// const { filename } = await req.file;
+
+// const newAvatarUrl = cloudinary.url(filename, {
+//   gravity: "faces",
+//   width: 250,
+//   height: 250,
+//   crop: "fill",
+// });
+
+// await User.findByIdAndUpdate(_id, { avatarURL: newAvatarUrl, name });
+// res.json({
+//   name,
+//   newAvatarUrl,
+// });
+
+// };
+
 const updateAvatar = async (req, res) => {
-  const { _id, name } = req.body;
-  const { filename } = req.file;
+  const { _id } = req.user;
+  const { name } = req.body;
+  let fields = {};
+  if (req.file) {
+    const { filename } = req.file;
+    fields = {
+      avatarUrl: cloudinary.url(filename, {
+        gravity: "faces",
+        width: 250,
+        height: 250,
+        crop: "fill",
+      }),
+    };
+  } else {
+    fields = {
+      avatarURL: null,
+    };
+  }
 
-  const newAvatarUrl = cloudinary.url(filename, {
-    gravity: "faces",
-    width: 250,
-    height: 250,
-    crop: "fill",
-  });
-
-  await User.findByIdAndUpdate(_id, { avatarURL: newAvatarUrl, name });
-  res.json({
-    name,
-    newAvatarUrl,
-  });
+  if (name) {
+    fields.name = name;
+  }
+  await User.findByIdAndUpdate(_id, fields);
+  res.json(fields);
 };
 
 const getCurrent = async (req, res) => {
