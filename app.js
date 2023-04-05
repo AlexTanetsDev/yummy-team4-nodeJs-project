@@ -30,7 +30,15 @@ const swaggerOptions = {
       version: "1.0.0.0",
     },
   },
-  apis: ["app.js", "./routes/api/*.js"],
+  apis: [
+    "app.js",
+    "./routes/api/auth/*.js",
+    "./routes/api/cotegoriesList/*.js",
+    "./routes/api/ingredients/*.js",
+    "./routes/api/recipes/*.js",
+    "./routes/api/shoppingList/*.js",
+    "./routes/api/userSubscribe/*.js",
+  ],
 };
 
 const swaggerDocs = swaggerJsDog(swaggerOptions);
