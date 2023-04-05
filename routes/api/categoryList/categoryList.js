@@ -1,21 +1,21 @@
 const express = require("express");
 const router = express.Router();
 
-const ctrl = require("../../../controllers/cotegories");
+const ctrl = require("../../../controllers/categoryList");
 
 /**
  * @swagger
  * tags:
- *   - name: CategoriesList
- *     description: recipe categories
+ *   - name: category-list
+ *     description: recipe categoryList
  */
 
 /**
  * @swagger
- * /api/category:
+ * /api/category-list:
  *   get:
  *     description: recipe categories
- *     tags: [CategoriesList]
+ *     tags: [categories]
  *     responses:
  *       200:
  *         description: Success
