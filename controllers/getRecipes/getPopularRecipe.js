@@ -7,20 +7,20 @@ const getPopularRecipe = async (req, res) => {
   if (!result) {
     throw HttpError(404, "Not found");
   }
-  const popularResepies = [];
-  result.forEach((recepie) => {
-    if (recepie.favorites.length > 0) {
+  const popularRecipes = [];
+  result.forEach((recipe) => {
+    if (recipe.favorites.length > 0) {
       const rec = {
-        id: recepie._id,
-        popularity: recepie.favorites.length,
+        id: recipe._id,
+        popularity: recipe.favorites.length,
       };
-      popularResepies.push(rec);
+      popularRecipes.push(rec);
     }
   });
 
-  popularResepies.sort((a, b) => b.popularity - a.popularity);
-  const limitedRecepies = popularResepies.slice(0, 4);
-  res.json(limitedRecepies);
+  popularRecipes.sort((a, b) => b.popularity - a.popularity);
+  const limitedRecipes = popularRecipes.slice(0, 4);
+  res.json(limitedRecipes);
 };
 
 module.exports = getPopularRecipe;
