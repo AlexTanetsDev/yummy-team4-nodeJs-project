@@ -17,9 +17,7 @@ const addOwnRecipe = async (req, res, next) => {
     author: _id,
   });
 
-  res.status(201).json({
-    data: newRecipe,
-  });
+  res.status(201).json(newRecipe);
 };
 
 module.exports = addOwnRecipe;
