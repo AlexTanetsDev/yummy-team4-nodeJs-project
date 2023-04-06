@@ -86,8 +86,26 @@ const recipe = Joi.object({
   ),
 });
 
+const title = Joi.object({
+  title: Joi.string().required().messages({
+    "string.base": `title should be a type of 'text'`,
+    "string.empty": `title cannot be an empty field`,
+    "any.required": `title is a required field`,
+  }),
+});
+
+const ingredient = Joi.object({
+  ingredient: Joi.string().required().messages({
+    "string.base": `ingredient should be a type of 'text'`,
+    "string.empty": `ingredient cannot be an empty field`,
+    "any.required": `ingredient is a required field`,
+  }),
+});
+
 const schemas = {
   recipe,
+  title,
+  ingredient,
 };
 
 const Recipe = model("recipe", recipeSchema);

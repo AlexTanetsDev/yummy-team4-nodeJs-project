@@ -1,7 +1,7 @@
 const express = require("express");
 
 const ctrl = require("../../../controllers/favorite");
-const { authentificate } = require("../../../middlewares");
+const { authentificate, isValidId } = require("../../../middlewares");
 
 const router = express.Router();
 /**
@@ -26,7 +26,7 @@ router.get("/", authentificate, ctrl.getAllFavoriteRecipes);
 
 /**
  * @swagger
- * /api/favorite/:recipeId:
+ * /api/favorite/:id:
  *   patch:
  *     description: update recipe
  *     tags: [Recipes]
@@ -34,10 +34,10 @@ router.get("/", authentificate, ctrl.getAllFavoriteRecipes);
  *       200:
  *         description: Success
  */
-router.patch("/:recipeId", authentificate, ctrl.addFavoriteRecipe);
+router.patch("/:id", authentificate, isValidId, ctrl.addFavoriteRecipe);
 /**
  * @swagger
- * /api/favorite/:recipeId:
+ * /api/favorite/:id:
  *   delete:
  *     description: delete recipe
  *     tags: [Recipes]
@@ -45,6 +45,6 @@ router.patch("/:recipeId", authentificate, ctrl.addFavoriteRecipe);
  *       200:
  *         description: Success
  */
-router.delete("/:recipeId", authentificate, ctrl.removeFavoriteRecipe);
+router.delete("/:id", authentificate, isValidId, ctrl.removeFavoriteRecipe);
 
 module.exports = router;
