@@ -4,7 +4,7 @@ const { HttpError } = require("../../helpers");
 const removeOwnRecipe = async (req, res) => {
   try {
     const { _id: userId } = req.user;
-    const recipeId = req.query.recipeId;
+    const recipeId = req.query.id;
 
     const deletedRecipe = await Recipe.findByIdAndDelete(
       { _id: recipeId },

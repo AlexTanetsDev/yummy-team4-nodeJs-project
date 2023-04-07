@@ -8,14 +8,16 @@ const getAllOwnRecipes = async (req, res, next) => {
 
   const searchParams = { author: _id };
 
-  const allOwnRecipes = await Recipe.find(searchParams, "-likes -tags", {
-    skip,
-    limit,
-  });
+  const allOwnRecipes = await Recipe.find(
+    searchParams,
+    "-likes -tags -createdAt -updatedAt -favorites",
+    {
+      skip,
+      limit,
+    }
+  );
 
-  res.status(200).json({
-    data: allOwnRecipes,
-  });
+  res.status(200).json(allOwnRecipes);
 };
 
 module.exports = getAllOwnRecipes;

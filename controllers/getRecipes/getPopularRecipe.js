@@ -4,7 +4,7 @@ const { Recipe } = require("../../models/recipe");
 const getPopularRecipe = async (req, res) => {
   const result = await Recipe.find({}, "_id favorites");
 
-  if (!result) {
+  if (!result.length) {
     throw HttpError(404, "Not found");
   }
   const popularRecipes = [];

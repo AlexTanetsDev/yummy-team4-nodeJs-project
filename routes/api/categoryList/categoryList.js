@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const ctrl = require("../../../controllers/categoryList");
+const { authentificate } = require("../../../middlewares");
 
 /**
  * @swagger
@@ -21,6 +22,6 @@ const ctrl = require("../../../controllers/categoryList");
  *         description: Success
  */
 
-router.get("/", ctrl.getCategoryList);
+router.get("/", authentificate, ctrl.getCategoryList);
 
 module.exports = router;
