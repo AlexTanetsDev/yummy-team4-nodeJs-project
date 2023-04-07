@@ -958,6 +958,7 @@
         "tags": ["Subscribe"],
         "summary": "Change users's subscribe",
         "parameters": [],
+        "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Subscribe's object",
           "required": true,
