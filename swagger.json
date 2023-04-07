@@ -800,6 +800,7 @@
         }
       }
     },
+
     "/api/search/ingredient/{ingredient}": {
       "get": {
         "tags": ["Recipes"],
@@ -850,6 +851,7 @@
         }
       }
     },
+
     "/api/shopping-list": {
       "get": {
         "tags": ["ShoppingList"],
@@ -918,10 +920,11 @@
         }
       }
     },
+
     "/api/shopping-list/{id}": {
       "delete": {
         "tags": ["ShoppingList"],
-        "summary": "Delete owner recipe",
+        "summary": "Delete product",
         "parameters": [
           {
             "in": "query",
@@ -945,6 +948,40 @@
           },
           "404": {
             "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/subscribe": {
+      "post": {
+        "tags": ["Subscribe"],
+        "summary": "Change users's subscribe",
+        "parameters": [],
+        "requestBody": {
+          "description": "Subscribe's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/subscribeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Change subscribe successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/subscribeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
             "content": {}
           }
         }
@@ -1635,6 +1672,36 @@
             "type": "string",
             "description": "Message",
             "example": "Delete success"
+          }
+        }
+      },
+
+      "subscribeRequest": {
+        "type": "object",
+        "properties": {
+          "subscription": {
+            "type": "string",
+            "description": "Message",
+            "enum": ["subscribe", "unsubscribe"],
+            "example": "subscribe"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email",
+            "example": "user@example.com"
+          }
+        }
+      },
+
+      "subscribeResponse": {
+        "type": "object",
+        "properties": {
+          "subscription": {
+            "type": "string",
+            "description": "Message",
+            "enum": ["subscribe", "unsubscribe"],
+            "example": "subscribe"
           }
         }
       }
