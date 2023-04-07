@@ -19,9 +19,6 @@ const ingredientRecipes = async (req, res) => {
     }
   );
 
-  if (!result.length) {
-    throw HttpError(400, "ingredient in recipes not found");
-  }
   res.json(result);
 };
 

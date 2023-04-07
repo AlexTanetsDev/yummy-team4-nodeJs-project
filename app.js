@@ -3,9 +3,6 @@ const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 const swaggerUi = require("swagger-ui-express");
-const swaggerJsDog = require("swagger-jsdoc");
-
-// const swaggerDocument = require("./swagger.json");
 
 const authRouter = require("./routes/api/auth/auth");
 const subscribeRouter = require("./routes/api/userSubscribe/subscribe");
@@ -24,25 +21,7 @@ const popularRecipeRouter = require("./routes/api/recipes/popularRecipe");
 
 const app = express();
 
-const swaggerOptions = {
-  swaggerDefinition: {
-    info: {
-      title: "API documentation So Yummy",
-      version: "1.0.0.0",
-    },
-  },
-  apis: [
-    "app.js",
-    "./routes/api/auth/*.js",
-    "./routes/api/categoryList/*.js",
-    "./routes/api/ingredients/*.js",
-    "./routes/api/recipes/*.js",
-    "./routes/api/shoppingList/*.js",
-    "./routes/api/userSubscribe/*.js",
-  ],
-};
-
-const swaggerDocs = swaggerJsDog(swaggerOptions);
+const swaggerDocs = require("./swagger.json");
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 

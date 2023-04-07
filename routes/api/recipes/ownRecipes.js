@@ -2,6 +2,7 @@ const express = require("express");
 
 const ctrl = require("../../../controllers/ownRecipes");
 const {
+  isValidId,
   validateBody,
   authentificate,
   uploadCloud,
@@ -37,6 +38,7 @@ router.get("/", authentificate, ctrl.getAllOwnRecipes);
 router.post(
   "/",
   authentificate,
+  isValidId,
   uploadCloud.single("recipeImage"),
   validateBody(schemas.recipe),
   ctrl.addOwnRecipe
