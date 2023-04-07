@@ -2,9 +2,14 @@ const { Product } = require("../../models/product");
 const { HttpError } = require("../../helpers");
 
 const removeProduct = async (req, res) => {
-  const { id } = req.params;
-  console.log(id);
-  const result = await Product.findByIdAndRemove(id);
+  const { _id: userId } = req.user;
+  const { id: productId } = req.params;
+
+  console.log(userId, productId);
+  const result = await Product.findByIdAndRemove(
+    { _id: productId },
+    { user: userId }
+  );
   if (!result) {
     throw HttpError(404, "Not found");
   }

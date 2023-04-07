@@ -2,8 +2,7 @@ const express = require("express");
 
 const ctrl = require("../../../controllers/getRecipes");
 
-const { validateBody, authentificate } = require("../../../middlewares");
-const { schemas } = require("../../../models/recipe");
+const { authentificate } = require("../../../middlewares");
 
 const router = express.Router();
 
@@ -18,12 +17,7 @@ const router = express.Router();
  *         description: Success
  */
 
-router.get(
-  "/title",
-  authentificate,
-  validateBody(schemas.title),
-  ctrl.searchRecipesByTitle
-);
+router.get("/title/:title", authentificate, ctrl.searchRecipesByTitle);
 /**
  * @swagger
  * /api/search/ingredient:
@@ -35,9 +29,8 @@ router.get(
  *         description: Success
  */
 router.get(
-  "/ingredient",
+  "/ingredient/:ingredient",
   authentificate,
-  validateBody(schemas.ingredient),
   ctrl.searchRecipesByIngredient
 );
 

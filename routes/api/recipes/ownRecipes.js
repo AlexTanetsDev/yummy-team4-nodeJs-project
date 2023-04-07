@@ -38,7 +38,6 @@ router.get("/", authentificate, ctrl.getAllOwnRecipes);
 router.post(
   "/",
   authentificate,
-  isValidId,
   uploadCloud.single("recipeImage"),
   validateBody(schemas.recipe),
   ctrl.addOwnRecipe
@@ -54,6 +53,6 @@ router.post(
  *       200:
  *         description: Success
  */
-router.delete("/", authentificate, ctrl.removeOwnRecipe);
+router.delete("/", authentificate, isValidId, ctrl.removeOwnRecipe);
 
 module.exports = router;

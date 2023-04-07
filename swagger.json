@@ -715,7 +715,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/api/ownRecipes/{id}": {
       "delete": {
         "tags": ["Recipes"],
         "summary": "Delete owner recipe",
@@ -751,17 +753,18 @@
         }
       }
     },
-    "/api/search/title": {
+
+    "/api/search/title/{title}": {
       "get": {
-        "tags": ["Ingredients"],
-        "summary": "Get recipes with ingredient",
+        "tags": ["Recipes"],
+        "summary": "Get recipes with title",
         "parameters": [
           {
-            "in": "query",
-            "name": "ingredientId",
+            "in": "path",
+            "name": "title",
             "required": true,
             "type": "string",
-            "description": "User's token from email"
+            "description": "title for search"
           },
           {
             "in": "query",
@@ -775,13 +778,59 @@
             "name": "limit",
             "type": "string",
             "description": "Page size for pagination",
-            "example": "8"
+            "example": "4"
           }
         ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
-            "description": "A list of ingredients",
+            "description": "Recipes with title",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fullRecipesResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/search/ingredient/{ingredient}": {
+      "get": {
+        "tags": ["Recipes"],
+        "summary": "Get recipes with ingredient",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ingredient",
+            "required": true,
+            "type": "string",
+            "description": "ingredient for search"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "string",
+            "description": "Page number for pagination",
+            "example": "1"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "string",
+            "description": "Page size for pagination",
+            "example": "4"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Recipes with ingredient",
             "content": {
               "application/json": {
                 "schema": {
@@ -791,11 +840,111 @@
             }
           },
           "400": {
-            "description": "ingredient id not set",
+            "description": "ingredient not found",
             "content": {}
           },
           "500": {
             "description": "Server error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/shopping-list": {
+      "get": {
+        "tags": ["ShoppingList"],
+        "summary": "Get all products",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "string",
+            "description": "Page number for pagination",
+            "example": "1"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "string",
+            "description": "Page size for pagination",
+            "example": "4"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "All products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/productsResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["ShoppingList"],
+        "summary": "Add new product",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "New product",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addProductRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "New owner recipe added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/productsResponse"
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad request",
+          "content": {}
+        }
+      }
+    },
+    "/api/shopping-list/{id}": {
+      "delete": {
+        "tags": ["ShoppingList"],
+        "summary": "Delete owner recipe",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "description": "Product's id",
+            "example": "642d43b899ec19811765c063"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Product deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deleteProductResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
             "content": {}
           }
         }
@@ -1417,6 +1566,75 @@
             "type": "string",
             "description": "Message",
             "example": "Recipe deleted"
+          }
+        }
+      },
+
+      "productsResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Product's id",
+            "example": "642d43b899ec19811765c063"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title",
+            "format": "text",
+            "example": "Title"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "Quantity",
+            "format": "text",
+            "example": "2"
+          },
+          "thumb": {
+            "type": "HTTP",
+            "description": "Picture URL",
+            "format": "text",
+            "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
+          },
+          "user": {
+            "type": "string",
+            "description": "User's id",
+            "example": "642c1a793b784cfcabb33f6b"
+          }
+        }
+      },
+
+      "addProductRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title",
+            "format": "text",
+            "example": "Title"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "Quantity",
+            "format": "text",
+            "example": "2"
+          },
+          "thumb": {
+            "type": "http",
+            "description": "Picture URL",
+            "format": "text",
+            "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
+          }
+        }
+      },
+
+      "deleteProductResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Message",
+            "example": "Delete success"
           }
         }
       }
