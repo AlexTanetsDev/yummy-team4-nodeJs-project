@@ -5,7 +5,6 @@ const removeProduct = async (req, res) => {
   const { _id: userId } = req.user;
   const { id: productId } = req.params;
 
-  console.log(userId, productId);
   const result = await Product.findByIdAndRemove(
     { _id: productId },
     { user: userId }

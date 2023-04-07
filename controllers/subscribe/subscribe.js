@@ -8,7 +8,7 @@ const updateSubscription = async (req, res) => {
   const { _id } = req.user;
   const { subscription, email } = req.body;
 
-  const updatedUser = await User.findByIdAndUpdate(
+  await User.findByIdAndUpdate(
     _id,
     { subscription },
     {
@@ -17,7 +17,7 @@ const updateSubscription = async (req, res) => {
   );
 
   res.json({
-    updatedUser,
+    subscription,
   });
 
   try {
