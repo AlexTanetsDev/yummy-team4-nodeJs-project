@@ -7,10 +7,11 @@ const searchRecipesByIngredient = async (req, res) => {
   const skip = (page - 1) * limit;
   limit = Number(limit) > 30 ? (limit = 30) : Number(limit);
 
-  const { ingredient: ttl } = req.body;
+  const { ingredient: ttl } = req.params;
 
   const searchParams = { $text: { $search: ttl } };
   const ingredientData = await Ingredient.findOne(searchParams);
+
   if (!ingredientData) {
     throw HttpError(400, "ingredient not found");
   }
