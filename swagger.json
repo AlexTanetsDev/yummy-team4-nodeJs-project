@@ -1018,6 +1018,11 @@
       "RegistrationResponse": {
         "type": "object",
         "properties": {
+          "verificationToken": {
+            "type": "string",
+            "description": "Token for verification on email",
+            "example": "XOdgSBxJSbROIO0b_QanF"
+          },
           "message": {
             "type": "string",
             "description": "Message",
