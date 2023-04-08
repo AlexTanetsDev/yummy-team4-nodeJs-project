@@ -1018,6 +1018,11 @@
       "RegistrationResponse": {
         "type": "object",
         "properties": {
+          "verificationToken": {
+            "type": "string",
+            "description": "Token for verification on email",
+            "example": "XOdgSBxJSbROIO0b_QanF"
+          },
           "message": {
             "type": "string",
             "description": "Message",
@@ -1352,6 +1357,11 @@
                     "type": "http",
                     "description": "Recipe's picture 350x350",
                     "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678561361/asyvsijv3cx7moiurbbh.jpg"
+                  },
+                  "favorites": {
+                    "type": "array",
+                    "description": "User's id",
+                    "example": ["641b56b15ece70f6eef42433"]
                   }
                 }
               }

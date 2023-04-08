@@ -30,10 +30,10 @@ const getMainPageRecipes = async (req, res) => {
   const result = category.map((item) => {
     return {
       category: item,
-      recipec: [...recipesList]
+      recipes: [...recipesList]
         .sort((a, b) => b.favorites.length - a.favorites.length)
         .filter((dish) => dish.category === item)
-        .slice(0, 4)
+        .slice(0, 4),
     };
   });
 
