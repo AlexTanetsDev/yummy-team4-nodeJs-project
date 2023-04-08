@@ -20,7 +20,7 @@ const getMainPageRecipes = async (req, res) => {
 
   const recipesList = await Recipe.find(
     { category: category },
-    "_id title category preview author"
+    "_id title category preview author favorites"
   );
 
   if (!recipesList) {
@@ -30,7 +30,10 @@ const getMainPageRecipes = async (req, res) => {
   const result = category.map((item) => {
     return {
       category: item,
-      recipes: recipesList.filter((dish) => dish.category === item),
+      recipec: [...recipesList]
+        .sort((a, b) => b.favorites.length - a.favorites.length)
+        .filter((dish) => dish.category === item)
+        .slice(0, 4)
     };
   });
 
