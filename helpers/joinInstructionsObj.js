@@ -1,5 +1,3 @@
-const joinInstructionsObj = (recipe) => {
-  recipe.instructions = recipe.instructions.join("\n");
-  return recipe;
-};
+const joinInstructionsObj = (array) => array.join("\n");
+
 module.exports = joinInstructionsObj;

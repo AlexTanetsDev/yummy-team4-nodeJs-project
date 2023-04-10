@@ -1132,11 +1132,6 @@
       "RegistrationResponse": {
         "type": "object",
         "properties": {
-          "verificationToken": {
-            "type": "string",
-            "description": "Token for verification on email",
-            "example": "XOdgSBxJSbROIO0b_QanF"
-          },
           "message": {
             "type": "string",
             "description": "Message",
@@ -1147,31 +1142,10 @@
       "VerifyResponse": {
         "type": "object",
         "properties": {
-          "token": {
+          "message": {
             "type": "string",
-            "description": "Token",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDJjMWE3OTNiNzg0Y2ZjYWJiMzNmNmIiLCJpYXQiOjE2ODA3MjM0ODcsImV4cCI6MTY4MDgwNjI4N30.ZIhXzgJS8pbpgwjEaPj-FHs6EHQaHVQ3gWY_zV-Fabk"
-          },
-          "user": {
-            "properties": {
-              "id": {
-                "type": "string",
-                "example": "642c1a793b784cfcabb33f6b"
-              },
-              "name": {
-                "type": "string",
-                "example": "Name"
-              },
-              "email": {
-                "type": "string",
-                "format": "email",
-                "example": "user@example.com"
-              },
-              "avatarURL": {
-                "type": "string",
-                "example": "//www.gravatar.com/avatar/954d6ddecedcc23b0a0331159f72a3ba"
-              }
-            }
+            "description": "Message",
+            "example": "Email verified"
           }
         }
       },
@@ -1211,6 +1185,11 @@
             "type": "string",
             "description": "User's password",
             "example": "123456"
+          },
+          "verify": {
+            "type": "boolean",
+            "description": "true - email's auto verification",
+            "example": "false"
           }
         }
       },
@@ -1224,6 +1203,11 @@
           },
           "user": {
             "properties": {
+              "id": {
+                "type": "string",
+                "description": "Users's id",
+                "example": "640c2dd963a319ea671e3669"
+              },
               "name": {
                 "type": "string",
                 "example": "Name"
@@ -1232,6 +1216,16 @@
                 "type": "string",
                 "format": "email",
                 "example": "user@example.com"
+              },
+              "avatarURL": {
+                "type": "string",
+                "example": "//www.gravatar.com/avatar/48fbe7a36f8109217aee2de87791096e"
+              },
+              "subscription": {
+                "type": "string",
+                "description": "Subscribtion on email",
+                "enum": ["subscribe", "unsubscribe"],
+                "example": "subscribe"
               }
             }
           }
@@ -1271,6 +1265,11 @@
       "UserCurrentResponse": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "Users's id",
+            "example": "640c2dd963a319ea671e3669"
+          },
           "name": {
             "type": "string",
             "example": "Name"
@@ -1279,6 +1278,16 @@
             "type": "string",
             "format": "email",
             "example": "user@example.com"
+          },
+          "avatarURL": {
+            "type": "string",
+            "example": "//www.gravatar.com/avatar/48fbe7a36f8109217aee2de87791096e"
+          },
+          "subscription": {
+            "type": "string",
+            "description": "Subscribtion on email",
+            "enum": ["subscribe", "unsubscribe"],
+            "example": "subscribe"
           }
         }
       },
@@ -1358,9 +1367,12 @@
               "example": "French"
             },
             "instructions": {
-              "type": "string",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
               "description": "Recipe's instructions",
-              "example": "Preheat the oven to 180°C/Gas mark 4 ..."
+              "example": ["String1", "String2"]
             },
             "thumb": {
               "type": "string",
@@ -1550,10 +1562,12 @@
             "example": "Beaf"
           },
           "instructions": {
-            "type": "string",
-            "description": "Instructions",
-            "format": "text",
-            "example": "Instructions text"
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Recipe's instructions",
+            "example": ["String1", "String2"]
           },
           "description": {
             "type": "string",
@@ -1624,10 +1638,12 @@
             "example": "Description text"
           },
           "instructions": {
-            "type": "string",
-            "description": "Instructions",
-            "format": "text",
-            "example": "Instructions text"
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Recipe's instructions",
+            "example": ["String1", "String2"]
           },
           "time": {
             "type": "string",
@@ -1684,10 +1700,12 @@
             "example": "Beaf"
           },
           "instructions": {
-            "type": "string",
-            "description": "Instructions",
-            "format": "text",
-            "example": "Instructions text"
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Recipe's instructions",
+            "example": ["String1", "String2"]
           },
           "description": {
             "type": "string",
@@ -1817,7 +1835,7 @@
         "properties": {
           "subscription": {
             "type": "string",
-            "description": "Message",
+            "description": "Subscribtion on email",
             "enum": ["subscribe", "unsubscribe"],
             "example": "subscribe"
           },
@@ -1834,7 +1852,7 @@
         "properties": {
           "subscription": {
             "type": "string",
-            "description": "Message",
+            "description": "Subscribtion on email",
             "enum": ["subscribe", "unsubscribe"],
             "example": "subscribe"
           }
