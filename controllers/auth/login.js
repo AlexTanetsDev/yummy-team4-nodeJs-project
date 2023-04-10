@@ -7,10 +7,18 @@ const { HttpError } = require("../../helpers");
 const { SECRET_KEY } = process.env;
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, verify = false } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
     throw HttpError(401, "Email or password is wrong");
+  }
+
+  if (verify) {
+    await User.findByIdAndUpdate(user._id, {
+      verify,
+      verificationToken: "",
+    });
+    user.verify = verify;
   }
 
   if (!user.verify) {
@@ -31,8 +39,11 @@ const login = async (req, res) => {
   res.json({
     token,
     user: {
+      id: user._id,
       name: user.name,
       email: user.email,
+      avatarURL: user.avatarURL,
+      subscription: user.subscription,
     },
   });
 };

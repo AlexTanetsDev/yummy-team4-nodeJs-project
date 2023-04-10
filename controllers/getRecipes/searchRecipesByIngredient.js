@@ -1,6 +1,6 @@
 const { Ingredient } = require("../../models/ingredient");
 const { Recipe } = require("../../models/recipe");
-const { HttpError } = require("../../helpers");
+const { HttpError, splitInstructions } = require("../../helpers");
 
 const searchRecipesByIngredient = async (req, res) => {
   let { page = 1, limit = 4 } = req.query;
@@ -17,16 +17,14 @@ const searchRecipesByIngredient = async (req, res) => {
   }
 
   const { _id: id } = ingredientData;
-  const result = await Recipe.find(
-    { "ingredients.id": id },
-    "-updatedAt -createdAt",
-    {
+  const result = (
+    await Recipe.find({ "ingredients.id": id }, "-updatedAt -createdAt", {
       skip,
       limit,
-    }
-  );
+    })
+  ).map((recipe) => recipe.toObject());
 
-  res.json(result);
+  res.json(splitInstructions(result));
 };
 
 module.exports = searchRecipesByIngredient;

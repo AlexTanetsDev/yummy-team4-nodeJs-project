@@ -1,4 +1,5 @@
 const { Recipe } = require("../../models/recipe");
+const { splitInstructions } = require("../../helpers/");
 
 const searchRecipesByTitle = async (req, res) => {
   let { page = 1, limit = 4 } = req.query;
@@ -8,15 +9,14 @@ const searchRecipesByTitle = async (req, res) => {
   const { title } = req.params;
   const searchParams = { $text: { $search: title } };
 
-  const searchedRecipes = await Recipe.find(
-    searchParams,
-    "-createdAt -updatedAt",
-    {
+  const searchedRecipes = (
+    await Recipe.find(searchParams, "-createdAt -updatedAt", {
       skip,
       limit,
-    }
-  );
-  res.json(searchedRecipes);
+    })
+  ).map((recipe) => recipe.toObject());
+
+  res.json(splitInstructions(searchedRecipes));
 };
 
 module.exports = searchRecipesByTitle;

@@ -8,7 +8,7 @@ const { HttpError, sendEmail } = require("../../helpers");
 const { BASE_URL } = process.env;
 
 const register = async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
   const user = await User.findOne({ email });
 
   if (user) {
@@ -29,13 +29,12 @@ const register = async (req, res) => {
   const verifyEmail = {
     to: email,
     subject: "Verify email",
-    html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${verificationToken}">Click for verify your email</a>`,
+    html: `Hi ${name},<br>We just need to verify your email address before you can access So Yummy.<br><br>Verify your email address please <a target="_blank" href="${BASE_URL}/api/users/verify/${verificationToken}">link</a><br><br>Thanks! – The Team-Team team`,
   };
 
   await sendEmail(verifyEmail);
 
   res.json({
-    verificationToken,
     message: "Verify email send success",
   });
 };
