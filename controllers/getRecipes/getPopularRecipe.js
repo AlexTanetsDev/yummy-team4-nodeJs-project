@@ -2,7 +2,10 @@ const { HttpError } = require("../../helpers");
 const { Recipe } = require("../../models/recipe");
 
 const getPopularRecipe = async (req, res) => {
-  const result = await Recipe.find({}, "_id favorites");
+  const result = await Recipe.find(
+    {},
+    "_id favorites title description preview"
+  );
 
   if (!result.length) {
     throw HttpError(404, "Not found");
@@ -13,6 +16,9 @@ const getPopularRecipe = async (req, res) => {
       const rec = {
         id: recipe._id,
         popularity: recipe.favorites.length,
+        title: recipe.title,
+        description: recipe.description,
+        preview: recipe.preview,
       };
       popularRecipes.push(rec);
     }
