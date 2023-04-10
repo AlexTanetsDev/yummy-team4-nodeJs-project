@@ -1,5 +1,5 @@
 const { Recipe } = require("../../models/recipe");
-// const { joinInstructionsObj } = require("../../helpers/");
+const { joinInstructionsObj } = require("../../helpers/");
 
 const addOwnRecipe = async (req, res, next) => {
   const { _id } = req.user;
@@ -10,10 +10,11 @@ const addOwnRecipe = async (req, res, next) => {
   if (req.file) {
     recipeImageUrl = req.file.path;
   }
+  const instructions = joinInstructionsObj(req.body.instructions);
 
-  // req.body.instructions = joinInstructionsObj(req.body.instructions);
   const newRecipe = await Recipe.create({
     ...req.body,
+    instructions,
     thumb: recipeImageUrl,
     preview: recipeImageUrl,
     author: _id,

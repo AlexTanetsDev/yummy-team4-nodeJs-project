@@ -19,13 +19,3 @@ const addFavoriteRecipe = async (req, res) => {
 };
 
 module.exports = addFavoriteRecipe;
-
-// fullRecipesResponse;
-//     "/api/favorite": {
-//     "/api/recipes/id/{id}": {
-//     "/api/search/title/{title}": {
-//     "/api/search/ingredient/{ingredient}": {
-
-// addOwnerRecipeRequest;
-// addOwnerRecipeResponse;
-// getAllOwnRecipes

@@ -53,6 +53,6 @@ router.post(
  *       200:
  *         description: Success
  */
-router.delete("/", authentificate, isValidId, ctrl.removeOwnRecipe);
+router.delete("/:id", authentificate, isValidId, ctrl.removeOwnRecipe);
 
 module.exports = router;

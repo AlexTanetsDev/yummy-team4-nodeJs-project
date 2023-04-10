@@ -1,7 +1,10 @@
 const { Recipe } = require("../../models/recipe");
-const { splitInstructions } = require("../../helpers/");
 
-const { HttpError, controllersWrapper } = require("../../helpers");
+const {
+  HttpError,
+  controllersWrapper,
+  splitInstructions,
+} = require("../../helpers");
 
 const ingredientRecipes = async (req, res) => {
   const { ingredientId = null, page = 1, limit = 8 } = req.query;
