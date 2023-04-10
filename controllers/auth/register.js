@@ -3,12 +3,14 @@ const { nanoid } = require("nanoid");
 const bcrypt = require("bcrypt");
 
 const { User } = require("../../models/user");
-const { HttpError, sendEmail } = require("../../helpers");
+// const { HttpError, sendEmail } = require("../../helpers");
+const { HttpError } = require("../../helpers");
 
-const { BASE_URL } = process.env;
+// const { BASE_URL } = process.env;
 
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
+  // const { name, email, password } = req.body;
+  const { email, password } = req.body;
   const user = await User.findOne({ email });
 
   if (user) {
@@ -26,16 +28,17 @@ const register = async (req, res) => {
     verificationToken,
   });
 
-  const verifyEmail = {
-    to: email,
-    subject: "Verify email",
-    html: `Hi ${name},<br>We just need to verify your email address before you can access So Yummy.<br><br>Verify your email address please <a target="_blank" href="${BASE_URL}/api/users/verify/${verificationToken}">link</a><br><br>Thanks! – The Team-Team team`,
-  };
+  // const verifyEmail = {
+  //   to: email,
+  //   subject: "Verify email",
+  //   html: `Hi ${name},<br>We just need to verify your email address before you can access So Yummy.<br><br>Verify your email address please <a target="_blank" href="${BASE_URL}/api/users/verify/${verificationToken}">link</a><br><br>Thanks! – The Team-Team team`,
+  // };
 
-  await sendEmail(verifyEmail);
+  // await sendEmail(verifyEmail);
 
   res.json({
-    message: "Verify email send success",
+    message: "User registered",
+    // message: "Verify email send success",
   });
 };
 

@@ -2,6 +2,8 @@ const { HttpError } = require("../../helpers");
 const { Recipe } = require("../../models/recipe");
 
 const getPopularRecipe = async (req, res) => {
+  const { page = 1, limit = 4 } = req.query;
+  const skip = (page - 1) * limit;
   const result = await Recipe.find(
     {},
     "_id favorites title description preview"
@@ -25,7 +27,7 @@ const getPopularRecipe = async (req, res) => {
   });
 
   popularRecipes.sort((a, b) => b.popularity - a.popularity);
-  const limitedRecipes = popularRecipes.slice(0, 4);
+  const limitedRecipes = popularRecipes.slice(skip, skip + limit);
   res.json(limitedRecipes);
 };
 

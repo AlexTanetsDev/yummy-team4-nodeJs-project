@@ -5,6 +5,7 @@ const sendEmail = require("./sendEmail");
 const splitInstructions = require("./splitInstructions");
 const splitInstructionsObj = require("./splitInstructionsObj");
 const joinInstructionsObj = require("./joinInstructionsObj");
+const getIngredientsName = require("./getIngredientsName");
 
 module.exports = {
   HttpError,
@@ -14,4 +15,5 @@ module.exports = {
   splitInstructions,
   splitInstructionsObj,
   joinInstructionsObj,
+  getIngredientsName,
 };
