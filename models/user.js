@@ -96,6 +96,7 @@ const loginSchema = Joi.object({
     "string.pattern.base": `email  fails to match the required pattern example@mail.com`,
     "any.required": `email is a required field`,
   }),
+  verify: Joi.boolean(),
 });
 
 const updateSubscriptionSchema = Joi.object({

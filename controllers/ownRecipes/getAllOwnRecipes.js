@@ -1,4 +1,5 @@
 const { Recipe } = require("../../models/recipe");
+const { splitInstructions } = require("../../helpers/");
 
 const getAllOwnRecipes = async (req, res, next) => {
   const { _id } = req.user;
@@ -8,16 +9,18 @@ const getAllOwnRecipes = async (req, res, next) => {
 
   const searchParams = { author: _id };
 
-  const allOwnRecipes = await Recipe.find(
-    searchParams,
-    "-likes -tags -createdAt -updatedAt -favorites",
-    {
-      skip,
-      limit,
-    }
-  );
+  const allOwnRecipes = (
+    await Recipe.find(
+      searchParams,
+      "-likes -tags -createdAt -updatedAt -favorites",
+      {
+        skip,
+        limit,
+      }
+    )
+  ).map((recipe) => recipe.toObject());
 
-  res.status(200).json(allOwnRecipes);
+  res.json(splitInstructions(allOwnRecipes));
 };
 
 module.exports = getAllOwnRecipes;

@@ -9,11 +9,13 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "consumes": ["application/json", "multipart/form-data"],
-  "produces": ["application/json"],
   "servers": [
-    { "url": "https://yummy-team4-nodejs-project.onrender.com" },
-    { "url": "http://localhost:3000" }
+    {
+      "url": "https://yummy-team4-nodejs-project.onrender.com"
+    },
+    {
+      "url": "http://localhost:3000"
+    }
   ],
   "tags": [
     {
@@ -24,28 +26,23 @@
       "name": "CategoryList",
       "description": "Recipes category list endpoint"
     },
-
     {
       "name": "Ingredients",
       "description": "Ingredients endpointd"
     },
-
     {
       "name": "Recipes",
       "description": "Recipes endpoints"
     },
-
     {
       "name": "ShoppingList",
       "description": "Shopping List endpoints"
     },
-
     {
       "name": "Subscribe",
       "description": "Subscribe endpoint"
     }
   ],
-
   "paths": {
     "/api/users/register": {
       "post": {
@@ -89,7 +86,6 @@
         }
       }
     },
-
     "/api/users/verify/{verificationToken}": {
       "get": {
         "tags": ["User"],
@@ -99,7 +95,9 @@
             "in": "path",
             "name": "verificationToken",
             "required": true,
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "User's token from email"
           }
         ],
@@ -125,7 +123,6 @@
         }
       }
     },
-
     "/api/users/verify": {
       "post": {
         "tags": ["User"],
@@ -164,7 +161,6 @@
         }
       }
     },
-
     "/api/users/login": {
       "post": {
         "tags": ["User"],
@@ -181,7 +177,6 @@
             }
           }
         },
-
         "responses": {
           "201": {
             "description": "User is logged in",
@@ -208,13 +203,16 @@
         }
       }
     },
-
     "/api/users/update": {
       "patch": {
         "tags": ["User"],
         "summary": "Update avatar and name",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "avatar and name",
           "required": true,
@@ -248,13 +246,16 @@
         }
       }
     },
-
     "/api/users/current": {
       "get": {
         "tags": ["User"],
         "summary": "Current user info",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Information about user found",
@@ -277,13 +278,16 @@
         }
       }
     },
-
     "/api/users/logout": {
       "post": {
         "tags": ["User"],
         "summary": "Log out user",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "The user is logged out",
@@ -300,13 +304,16 @@
         }
       }
     },
-
     "/api/category-list": {
       "get": {
         "tags": ["CategoryList"],
         "summary": "Get all categories",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of categories",
@@ -325,13 +332,16 @@
         }
       }
     },
-
     "/api/ingredients/list": {
       "get": {
         "tags": ["Ingredients"],
         "summary": "Get all ingredients",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of ingredients",
@@ -350,7 +360,6 @@
         }
       }
     },
-
     "/api/ingredients": {
       "get": {
         "tags": ["Ingredients"],
@@ -360,25 +369,35 @@
             "in": "query",
             "name": "ingredientId",
             "required": true,
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "User's token from email"
           },
           {
             "in": "query",
             "name": "page",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page number for pagination",
             "example": "1"
           },
           {
             "in": "query",
             "name": "limit",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page size for pagination",
             "example": "8"
           }
         ],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of ingredients",
@@ -401,13 +420,16 @@
         }
       }
     },
-
     "/api/recipes/main-page": {
       "get": {
         "tags": ["Recipes"],
         "summary": "Get recipes for all categories for homepage",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of recipes for all categories",
@@ -430,7 +452,6 @@
         }
       }
     },
-
     "/api/favorite": {
       "get": {
         "tags": ["Recipes"],
@@ -439,19 +460,27 @@
           {
             "in": "query",
             "name": "page",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page number for pagination",
             "example": "1"
           },
           {
             "in": "query",
             "name": "limit",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page size for pagination",
             "example": "4"
           }
         ],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of recipes for all categories",
@@ -470,7 +499,6 @@
         }
       }
     },
-
     "/api/favorite/{id}": {
       "patch": {
         "tags": ["Recipes"],
@@ -480,11 +508,17 @@
             "in": "path",
             "name": "id",
             "required": true,
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Add recipe with id to favorite of user"
           }
         ],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "201": {
             "description": "Recipe added to favorite",
@@ -514,11 +548,17 @@
             "in": "path",
             "name": "id",
             "required": true,
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Delete recipe with id from favorite of user"
           }
         ],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Recipe deleted from favorite",
@@ -541,7 +581,6 @@
         }
       }
     },
-
     "/api/recipes/category/{category}": {
       "get": {
         "tags": ["Recipes"],
@@ -551,25 +590,35 @@
             "in": "path",
             "name": "category",
             "required": true,
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Category for search"
           },
           {
             "in": "query",
             "name": "page",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page number for pagination",
             "example": "1"
           },
           {
             "in": "query",
             "name": "limit",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page size for pagination",
             "example": "8"
           }
         ],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Recipes with category",
@@ -597,11 +646,17 @@
             "in": "path",
             "name": "id",
             "required": true,
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "id for search"
           }
         ],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Recipe with id",
@@ -629,7 +684,11 @@
         "tags": ["Recipes"],
         "summary": "Get 4 popular recipes",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "4 popular recipes",
@@ -652,7 +711,6 @@
         }
       }
     },
-
     "/api/ownRecipes": {
       "get": {
         "tags": ["Recipes"],
@@ -661,19 +719,27 @@
           {
             "in": "query",
             "name": "page",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page number for pagination",
             "example": "1"
           },
           {
             "in": "query",
             "name": "limit",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page size for pagination",
             "example": "4"
           }
         ],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "All owner recipes",
@@ -691,7 +757,11 @@
         "tags": ["Recipes"],
         "summary": "Add new owner recipe",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "New recipe",
           "required": true,
@@ -723,14 +793,21 @@
         "summary": "Delete owner recipe",
         "parameters": [
           {
-            "in": "query",
+            "in": "path",
             "name": "id",
-            "type": "string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
             "description": "Owner recipe id",
             "example": "642ff113bea6bba393d64378"
           }
         ],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Owner recipe deleted",
@@ -753,7 +830,6 @@
         }
       }
     },
-
     "/api/search/title/{title}": {
       "get": {
         "tags": ["Recipes"],
@@ -763,25 +839,35 @@
             "in": "path",
             "name": "title",
             "required": true,
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "title for search"
           },
           {
             "in": "query",
             "name": "page",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page number for pagination",
             "example": "1"
           },
           {
             "in": "query",
             "name": "limit",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page size for pagination",
             "example": "4"
           }
         ],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Recipes with title",
@@ -800,7 +886,6 @@
         }
       }
     },
-
     "/api/search/ingredient/{ingredient}": {
       "get": {
         "tags": ["Recipes"],
@@ -810,25 +895,35 @@
             "in": "path",
             "name": "ingredient",
             "required": true,
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "ingredient for search"
           },
           {
             "in": "query",
             "name": "page",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page number for pagination",
             "example": "1"
           },
           {
             "in": "query",
             "name": "limit",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page size for pagination",
             "example": "4"
           }
         ],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Recipes with ingredient",
@@ -851,7 +946,6 @@
         }
       }
     },
-
     "/api/shopping-list": {
       "get": {
         "tags": ["ShoppingList"],
@@ -860,19 +954,27 @@
           {
             "in": "query",
             "name": "page",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page number for pagination",
             "example": "1"
           },
           {
             "in": "query",
             "name": "limit",
-            "type": "string",
+            "schema": {
+              "type": "string"
+            },
             "description": "Page size for pagination",
             "example": "4"
           }
         ],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "All products",
@@ -890,7 +992,11 @@
         "tags": ["ShoppingList"],
         "summary": "Add new product",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "New product",
           "required": true,
@@ -912,29 +1018,35 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {}
           }
-        },
-        "400": {
-          "description": "Bad request",
-          "content": {}
         }
       }
     },
-
     "/api/shopping-list/{id}": {
       "delete": {
         "tags": ["ShoppingList"],
         "summary": "Delete product",
         "parameters": [
           {
-            "in": "query",
+            "in": "path",
             "name": "id",
-            "type": "string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
             "description": "Product's id",
             "example": "642d43b899ec19811765c063"
           }
         ],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Product deleted",
@@ -958,7 +1070,11 @@
         "tags": ["Subscribe"],
         "summary": "Change users's subscribe",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "Subscribe's object",
           "required": true,
@@ -989,7 +1105,6 @@
       }
     }
   },
-
   "components": {
     "schemas": {
       "RegistrationRequest": {
@@ -1014,7 +1129,6 @@
           }
         }
       },
-
       "RegistrationResponse": {
         "type": "object",
         "properties": {
@@ -1030,7 +1144,6 @@
           }
         }
       },
-
       "VerifyResponse": {
         "type": "object",
         "properties": {
@@ -1055,14 +1168,13 @@
                 "example": "user@example.com"
               },
               "avatarURL": {
-                "type": "http",
+                "type": "string",
                 "example": "//www.gravatar.com/avatar/954d6ddecedcc23b0a0331159f72a3ba"
               }
             }
           }
         }
       },
-
       "ResendEmailRequest": {
         "type": "object",
         "required": ["email"],
@@ -1075,7 +1187,6 @@
           }
         }
       },
-
       "ResendEmailResponse": {
         "type": "object",
         "properties": {
@@ -1086,7 +1197,6 @@
           }
         }
       },
-
       "LoginRequest": {
         "type": "object",
         "required": ["email", "password"],
@@ -1104,7 +1214,6 @@
           }
         }
       },
-
       "LoginResponse": {
         "type": "object",
         "properties": {
@@ -1128,7 +1237,6 @@
           }
         }
       },
-
       "UpdateRequest": {
         "type": "object",
         "properties": {
@@ -1145,12 +1253,11 @@
           }
         }
       },
-
       "UpdateResponse": {
         "type": "object",
         "properties": {
           "avatarURL": {
-            "type": "http",
+            "type": "string",
             "description": "User's avatar",
             "example": "http://res.cloudinary.com/dkkt8rmcn/image/upload/c_fill,g_faces,h_250,w_250/sks3mj1rb8mtxuesirz7"
           },
@@ -1161,7 +1268,6 @@
           }
         }
       },
-
       "UserCurrentResponse": {
         "type": "object",
         "properties": {
@@ -1176,9 +1282,11 @@
           }
         }
       },
-
       "CategoryListResponse": {
         "type": "array",
+        "items": {
+          "type": "string"
+        },
         "example": [
           "Beef",
           "Breakfast",
@@ -1193,10 +1301,9 @@
           "Side",
           "Starter",
           "Vegan",
-          "Vefetaeian"
+          "Vefetarian"
         ]
       },
-
       "IngredientsListResponse": {
         "type": "array",
         "items": {
@@ -1218,14 +1325,13 @@
               "example": ""
             },
             "tbb": {
-              "type": "http",
+              "type": "string",
               "description": "Picture's URL of ingredient",
               "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678564218/mlam2som4r46vlggwxhg.png"
             }
           }
         }
       },
-
       "fullRecipesResponse": {
         "type": "array",
         "items": {
@@ -1257,12 +1363,12 @@
               "example": "Preheat the oven to 180°C/Gas mark 4 ..."
             },
             "thumb": {
-              "type": "http",
+              "type": "string",
               "description": "Recipe's picture 700x700",
               "example": "https://www.themealdb.com/images/media/meals/wruvqv1511880994.jpg"
             },
             "preview": {
-              "type": "http",
+              "type": "string",
               "description": "Recipe's picture 350x350",
               "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678561361/asyvsijv3cx7moiurbbh.jpg"
             },
@@ -1272,28 +1378,38 @@
               "example": "85"
             },
             "popularity": {
-              "type": "number",
+              "type": "integer",
+              "format": "int32",
               "description": "Recipe's popularity",
               "example": 0
             },
             "favorites": {
               "type": "array",
+              "items": {
+                "type": "string"
+              },
               "description": "User's id",
               "example": []
             },
             "likes": {
               "type": "array",
+              "items": {
+                "type": "string"
+              },
               "description": "User's likes",
               "example": []
             },
             "youtube": {
-              "type": "http",
+              "type": "string",
               "description": "Recipe's youtube URL",
               "example": "hhttps://www.youtube.com/watch?v=emfm6TwsVhg"
             },
             "tags": {
               "type": "array",
-              "dexcription": "Recipe's type",
+              "items": {
+                "type": "string"
+              },
+              "description": "Recipe's type",
               "example": ["Pasta"]
             },
             "ingredients": {
@@ -1322,7 +1438,6 @@
           }
         }
       },
-
       "recipesMainPageResponse": {
         "type": "array",
         "items": {
@@ -1354,14 +1469,20 @@
                     "example": "Chicken"
                   },
                   "preview": {
-                    "type": "http",
+                    "type": "string",
                     "description": "Recipe's picture 350x350",
                     "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678561361/asyvsijv3cx7moiurbbh.jpg"
                   },
                   "favorites": {
                     "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
                     "description": "User's id",
-                    "example": ["641b56b15ece70f6eef42433"]
+                    "example": [
+                      "641b56b15ece70f6eef42433",
+                      "641b56b15ece70f6eef42433"
+                    ]
                   }
                 }
               }
@@ -1369,7 +1490,6 @@
           }
         }
       },
-
       "addFavoriteResponse": {
         "type": "object",
         "properties": {
@@ -1380,7 +1500,6 @@
           }
         }
       },
-
       "deleteFavoriteResponse": {
         "type": "object",
         "properties": {
@@ -1391,7 +1510,6 @@
           }
         }
       },
-
       "popularRecipesResponse": {
         "type": "array",
         "items": {
@@ -1403,14 +1521,14 @@
               "example": "640cd5ac2d9fecf12e8898fa"
             },
             "popularity": {
-              "type": "number",
+              "type": "integer",
+              "format": "int32",
               "description": "Recept's popularity",
               "example": 22
             }
           }
         }
       },
-
       "ownerRecipesResponse": {
         "type": "object",
         "properties": {
@@ -1430,6 +1548,12 @@
             "description": "Category",
             "format": "text",
             "example": "Beaf"
+          },
+          "instructions": {
+            "type": "string",
+            "description": "Instructions",
+            "format": "text",
+            "example": "Instructions text"
           },
           "description": {
             "type": "string",
@@ -1462,12 +1586,12 @@
             }
           },
           "thumb": {
-            "type": "http",
+            "type": "string",
             "description": "recept's picture",
             "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
           },
           "preview": {
-            "type": "http",
+            "type": "string",
             "description": "recept's picture",
             "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
           },
@@ -1478,7 +1602,6 @@
           }
         }
       },
-
       "addOwnerRecipeRequest": {
         "type": "object",
         "properties": {
@@ -1519,16 +1642,24 @@
               "properties": {
                 "id": {
                   "type": "string",
-                  "description": "Ingredient's id",
-                  "example": "640cd5ac2d9fecf12e8898fa"
+                  "description": "ingretient's id"
                 },
                 "measure": {
                   "type": "string",
-                  "description": "Ingredient's count",
-                  "example": "50g"
+                  "description": "ingretient's count"
                 }
               }
-            }
+            },
+            "example": [
+              {
+                "id": "640c2dd963a319ea671e365b",
+                "measure": "1 kg"
+              },
+              {
+                "id": "640c2dd963a319ea671e36c4",
+                "measure": "2 kg"
+              }
+            ]
           },
           "recipeImage": {
             "type": "string",
@@ -1537,7 +1668,6 @@
           }
         }
       },
-
       "addOwnerRecipeResponse": {
         "type": "object",
         "properties": {
@@ -1566,12 +1696,12 @@
             "example": "Description text"
           },
           "thumb": {
-            "type": "http",
+            "type": "string",
             "description": "recept's picture",
             "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
           },
           "preview": {
-            "type": "http",
+            "type": "string",
             "description": "recept's picture",
             "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
           },
@@ -1606,7 +1736,6 @@
           }
         }
       },
-
       "deleteOwnerRecipeResponse": {
         "type": "object",
         "properties": {
@@ -1617,7 +1746,6 @@
           }
         }
       },
-
       "productsResponse": {
         "type": "object",
         "properties": {
@@ -1639,7 +1767,7 @@
             "example": "2"
           },
           "thumb": {
-            "type": "HTTP",
+            "type": "string",
             "description": "Picture URL",
             "format": "text",
             "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
@@ -1651,7 +1779,6 @@
           }
         }
       },
-
       "addProductRequest": {
         "type": "object",
         "properties": {
@@ -1668,14 +1795,13 @@
             "example": "2"
           },
           "thumb": {
-            "type": "http",
+            "type": "string",
             "description": "Picture URL",
             "format": "text",
             "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
           }
         }
       },
-
       "deleteProductResponse": {
         "type": "object",
         "properties": {
@@ -1686,7 +1812,6 @@
           }
         }
       },
-
       "subscribeRequest": {
         "type": "object",
         "properties": {
@@ -1704,7 +1829,6 @@
           }
         }
       },
-
       "subscribeResponse": {
         "type": "object",
         "properties": {
@@ -1717,7 +1841,6 @@
         }
       }
     },
-
     "securitySchemes": {
       "Bearer": {
         "type": "http",
