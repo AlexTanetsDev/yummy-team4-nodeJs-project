@@ -9,7 +9,12 @@ const getAllOwnRecipes = async (req, res, next) => {
 
   const searchParams = { author: _id };
 
-  const allOwnRecipes = (
+  const dataCount = await Recipe.find(
+    searchParams,
+    "-likes -tags -createdAt -updatedAt -favorites"
+  );
+
+  const data = (
     await Recipe.find(
       searchParams,
       "-likes -tags -createdAt -updatedAt -favorites",
@@ -20,7 +25,10 @@ const getAllOwnRecipes = async (req, res, next) => {
     )
   ).map((recipe) => recipe.toObject());
 
-  res.json(splitInstructions(allOwnRecipes));
+  res.json({
+    data: splitInstructions(data),
+    total: dataCount.length,
+  });
 };
 
 module.exports = getAllOwnRecipes;
