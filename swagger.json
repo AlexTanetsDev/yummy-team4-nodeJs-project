@@ -487,7 +487,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/fullRecipesResponse"
+                  "$ref": "#/components/schemas/favoriteRecipesResponse"
                 }
               }
             }
@@ -1502,6 +1502,130 @@
           }
         }
       },
+      "favoriteRecipesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Recipe's id",
+                  "example": "640cd5ac2d9fecf12e88988a"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Recipe's title",
+                  "example": "Chicken Basquaise"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Recipe's category",
+                  "example": "Chicken"
+                },
+                "area": {
+                  "type": "string",
+                  "description": "Recipe's area",
+                  "example": "French"
+                },
+                "instructions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Recipe's instructions",
+                  "example": ["String1", "String2"]
+                },
+                "desctiption": {
+                  "type": "string",
+                  "description": "Recipe's description",
+                  "example": "A classic French beef"
+                },
+                "thumb": {
+                  "type": "string",
+                  "description": "Recipe's picture 700x700",
+                  "example": "https://www.themealdb.com/images/media/meals/wruvqv1511880994.jpg"
+                },
+                "preview": {
+                  "type": "string",
+                  "description": "Recipe's picture 350x350",
+                  "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678561361/asyvsijv3cx7moiurbbh.jpg"
+                },
+                "time": {
+                  "type": "string",
+                  "description": "Recipe's ready time",
+                  "example": "85"
+                },
+                "popularity": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Recipe's popularity",
+                  "example": 0
+                },
+                "favorites": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "User's id",
+                  "example": []
+                },
+                "likes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "User's likes",
+                  "example": []
+                },
+                "youtube": {
+                  "type": "string",
+                  "description": "Recipe's youtube URL",
+                  "example": "hhttps://www.youtube.com/watch?v=emfm6TwsVhg"
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Recipe's type",
+                  "example": ["Pasta"]
+                },
+                "ingredients": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "description": "Ingredient's id in base",
+                        "example": "642f269648bf71f78e06de96"
+                      },
+                      "id": {
+                        "type": "string",
+                        "description": "Ingredient's id",
+                        "example": "640c2dd963a319ea671e365b"
+                      },
+                      "measure": {
+                        "type": "string",
+                        "description": "Ingredient count",
+                        "example": "1.5kg"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          }
+        }
+      },
       "addFavoriteResponse": {
         "type": "object",
         "properties": {
@@ -1683,75 +1807,88 @@
       "ownerRecipesResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Recept's id",
-            "example": "642ff722e31cb067bb0928b2"
-          },
-          "title": {
-            "type": "string",
-            "description": "Title",
-            "format": "text",
-            "example": "New Recipe"
-          },
-          "category": {
-            "type": "string",
-            "description": "Category",
-            "format": "text",
-            "example": "Beaf"
-          },
-          "instructions": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "Recipe's instructions",
-            "example": ["String1", "String2"]
-          },
-          "description": {
-            "type": "string",
-            "description": "Description",
-            "format": "text",
-            "example": "Description text"
-          },
-          "time": {
-            "type": "string",
-            "description": "Time",
-            "format": "text",
-            "example": "40"
-          },
-          "ingredients": {
+          "data": {
             "type": "array",
             "items": {
               "type": "object",
               "properties": {
-                "id": {
+                "_id": {
                   "type": "string",
-                  "description": "Ingredient's id",
-                  "example": "640cd5ac2d9fecf12e8898fa"
+                  "description": "Recept's id",
+                  "example": "642ff722e31cb067bb0928b2"
                 },
-                "measure": {
+                "title": {
                   "type": "string",
-                  "description": "Ingredient's count",
-                  "example": "50g"
+                  "description": "Title",
+                  "format": "text",
+                  "example": "New Recipe"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Category",
+                  "format": "text",
+                  "example": "Beaf"
+                },
+                "instructions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Recipe's instructions",
+                  "example": ["String1", "String2"]
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description",
+                  "format": "text",
+                  "example": "Description text"
+                },
+                "time": {
+                  "type": "string",
+                  "description": "Time",
+                  "format": "text",
+                  "example": "40"
+                },
+                "ingredients": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Ingredient's id",
+                        "example": "640cd5ac2d9fecf12e8898fa"
+                      },
+                      "measure": {
+                        "type": "string",
+                        "description": "Ingredient's count",
+                        "example": "50g"
+                      }
+                    }
+                  }
+                },
+                "thumb": {
+                  "type": "string",
+                  "description": "recept's picture",
+                  "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
+                },
+                "preview": {
+                  "type": "string",
+                  "description": "recept's picture",
+                  "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
+                },
+                "author": {
+                  "type": "string",
+                  "description": "User's id",
+                  "example": "642c1a793b784cfcabb33f6b"
                 }
               }
             }
           },
-          "thumb": {
-            "type": "string",
-            "description": "recept's picture",
-            "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
-          },
-          "preview": {
-            "type": "string",
-            "description": "recept's picture",
-            "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
-          },
-          "author": {
-            "type": "string",
-            "description": "User's id",
-            "example": "642c1a793b784cfcabb33f6b"
+          "total": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
           }
         }
       },

@@ -7,6 +7,11 @@ const getAllFavoriteRecipes = async (req, res) => {
   const skip = (page - 1) * limit;
   limit = Number(limit) > 30 ? (limit = 30) : Number(limit);
 
+  const dataCount = await Recipe.find(
+    { favorites: user },
+    "-createdAt -updatedAt"
+  );
+
   const data = (
     await Recipe.find({ favorites: user }, "-createdAt -updatedAt", {
       skip,
@@ -14,7 +19,7 @@ const getAllFavoriteRecipes = async (req, res) => {
     })
   ).map((recipe) => recipe.toObject());
 
-  res.json(splitInstructions(data));
+  res.json({ data: splitInstructions(data), total: dataCount.length });
 };
 
 module.exports = getAllFavoriteRecipes;
