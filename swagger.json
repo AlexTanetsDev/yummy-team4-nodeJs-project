@@ -663,7 +663,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/fullRecipesResponse"
+                  "$ref": "#/components/schemas/idRecipesResponse"
                 }
               }
             }
@@ -1185,11 +1185,6 @@
             "type": "string",
             "description": "User's password",
             "example": "123456"
-          },
-          "verify": {
-            "type": "boolean",
-            "description": "true - email's auto verification",
-            "example": "false"
           }
         }
       },
@@ -1524,6 +1519,130 @@
             "type": "string",
             "description": "Message",
             "example": "Deleted from favorite"
+          }
+        }
+      },
+      "idRecipesResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "Recipe's id",
+              "example": "640cd5ac2d9fecf12e88988a"
+            },
+            "title": {
+              "type": "string",
+              "description": "Recipe's title",
+              "example": "Chicken Basquaise"
+            },
+            "category": {
+              "type": "string",
+              "description": "Recipe's category",
+              "example": "Chicken"
+            },
+            "area": {
+              "type": "string",
+              "description": "Recipe's area",
+              "example": "French"
+            },
+            "instructions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Recipe's instructions",
+              "example": ["String1", "String2"]
+            },
+            "desctiption": {
+              "type": "string",
+              "description": "Recipe's description",
+              "example": "A classic French beef"
+            },
+            "thumb": {
+              "type": "string",
+              "description": "Recipe's picture 700x700",
+              "example": "https://www.themealdb.com/images/media/meals/wruvqv1511880994.jpg"
+            },
+            "preview": {
+              "type": "string",
+              "description": "Recipe's picture 350x350",
+              "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678561361/asyvsijv3cx7moiurbbh.jpg"
+            },
+            "time": {
+              "type": "string",
+              "description": "Recipe's ready time",
+              "example": "85"
+            },
+            "popularity": {
+              "type": "integer",
+              "format": "int32",
+              "description": "Recipe's popularity",
+              "example": 0
+            },
+            "favorites": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "User's id",
+              "example": []
+            },
+            "likes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "User's likes",
+              "example": []
+            },
+            "youtube": {
+              "type": "string",
+              "description": "Recipe's youtube URL",
+              "example": "hhttps://www.youtube.com/watch?v=emfm6TwsVhg"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Recipe's type",
+              "example": ["Pasta"]
+            },
+            "ingredients": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "Ingredient's id in recipes",
+                    "example": "64351afb690df50a4bc10d48"
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Ingredient's id in ingredients",
+                    "example": "640c2dd963a319ea671e36bd"
+                  },
+                  "measure": {
+                    "type": "string",
+                    "description": "Ingredient's count",
+                    "example": "2 tbsp"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Ingredient's name",
+                    "example": "Dark Soy Sauce"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Ingredient's picture",
+                    "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678564742/tzfaicrr9acagjxtg9tp.png"
+                  }
+                }
+              }
+            }
           }
         }
       },
