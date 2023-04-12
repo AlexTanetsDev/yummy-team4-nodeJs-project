@@ -39,24 +39,20 @@ const ingredient = Joi.object({
   //   thb: Joi.string().required(),
 });
 
-
- 
 const getIngredientSchema = Joi.object({
   ingredient: Joi.string()
     .required()
-    .messages({ "any.required": "missing field ingredient" }),
+    .messages({ "any.required": "ingredientis a required field" }),
 });
 
 const schemas = {
-  getIngredientSchema,  ingredient,
-
+  getIngredientSchema,
+  ingredient,
 };
 
 const Ingredient = model("ingredient", ingredientSchema);
-
 
 module.exports = {
   Ingredient,
   schemas,
 };
-
