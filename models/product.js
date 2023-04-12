@@ -5,11 +5,11 @@ const productSchema = new Schema(
   {
     title: {
       type: String,
-      required: [true, "title is required"],
+      required: [true, "missing field title"],
     },
     quantity: {
       type: String,
-      required: [true, "quantity is required"],
+      required: [true, "missing field quantity"],
     },
 
     thumb: {
@@ -33,16 +33,12 @@ const product = Joi.object({
       Joi.object({
         title: Joi.string()
           .required()
-          .messages({ "any.required": "products is required" }),
-        quantity: Joi.string()
-          .required()
-          .messages({ "any.required": "products is required" }),
-        thumb: Joi.string()
-          .required()
-          .messages({ "any.required": "products is required" }),
+          .messages({ "any.required": "products title is a required field" }),
+        quantity: Joi.string().required().messages({
+          "any.required": "products quantity is a required field",
+        }),
+        thumb: Joi.string(),
       })
-        .required()
-        .messages({ "any.required": "products is required" })
     ),
 });
 

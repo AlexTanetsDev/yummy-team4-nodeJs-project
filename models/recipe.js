@@ -59,20 +59,20 @@ recipeSchema.post("save", handleMongooseError);
 const recipe = Joi.object({
   title: Joi.string()
     .required()
-    .messages({ "any.required": "missing field title" }),
+    .messages({ "any.required": "title is a required field" }),
   category: Joi.string()
     .required()
-    .messages({ "any.required": "missing field category" }),
+    .messages({ "any.required": "category is a required field" }),
   description: Joi.string()
     .required()
-    .messages({ "any.required": "missing field description" }),
+    .messages({ "any.required": "description is a required field" }),
   instructions: Joi.array()
     .required()
     .items(Joi.string())
-    .messages({ "any.required": "missing field instructions" }),
+    .messages({ "any.required": "instructions is a required field" }),
   time: Joi.string()
     .required()
-    .messages({ "any.required": "missing field time" }),
+    .messages({ "any.required": "time is a required field" }),
   thumb: Joi.string(),
   preview: Joi.string(),
   ingredients: Joi.array()
@@ -81,10 +81,10 @@ const recipe = Joi.object({
       Joi.object({
         id: Joi.string()
           .required()
-          .messages({ "any.required": "missing field ingredients id" }),
-        measure: Joi.string()
-          .required()
-          .messages({ "any.required": "missing field ingredients measure" }),
+          .messages({ "any.required": "mingredients id is a required field" }),
+        measure: Joi.string().required().messages({
+          "any.required": "ingredients measure is a required field",
+        }),
       })
     ),
 });
