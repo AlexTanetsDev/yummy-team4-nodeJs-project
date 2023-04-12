@@ -27,13 +27,23 @@ const productSchema = new Schema(
 );
 
 const product = Joi.object({
-  title: Joi.string()
+  products: Joi.array()
     .required()
-    .messages({ "any.required": "missing field title" }),
-  quantity: Joi.string()
-    .required()
-    .messages({ "any.required": "missing field quantity" }),
-  thumb: Joi.string(),
+    .items(
+      Joi.object({
+        title: Joi.string()
+          .required()
+          .messages({ "any.required": "products is required" }),
+        quantity: Joi.string()
+          .required()
+          .messages({ "any.required": "products is required" }),
+        thumb: Joi.string()
+          .required()
+          .messages({ "any.required": "products is required" }),
+      })
+        .required()
+        .messages({ "any.required": "products is required" })
+    ),
 });
 
 const schemas = {

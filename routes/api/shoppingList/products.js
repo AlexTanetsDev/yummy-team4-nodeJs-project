@@ -4,6 +4,7 @@ const {
   validateBody,
   authentificate,
   isValidId,
+  uploadCloud,
 } = require("../../../middlewares");
 
 const ctrl = require("../../../controllers/shoppingList");
@@ -42,6 +43,7 @@ router.get("/", authentificate, ctrl.getProductsList);
 router.post(
   "/",
   authentificate,
+  uploadCloud.single("image"),
   validateBody(schemas.product),
   ctrl.addProduct
 );

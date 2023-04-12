@@ -1014,7 +1014,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/productsResponse"
+                  "$ref": "#/components/schemas/addProductResponse"
                 }
               }
             }
@@ -2074,25 +2074,47 @@
         }
       },
       "addProductRequest": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Title",
+              "format": "text"
+            },
+            "quantity": {
+              "type": "string",
+              "description": "Quantity",
+              "format": "text"
+            },
+            "thumb": {
+              "type": "string",
+              "description": "Picture URL",
+              "format": "text"
+            }
+          }
+        },
+        "example": [
+          {
+            "title": "Title1",
+            "quantity": "1",
+            "thumb": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
+          },
+          {
+            "title": "Title2",
+            "quantity": "2",
+            "thumb": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
+          }
+        ]
+      },
+      "addProductResponse": {
         "type": "object",
         "properties": {
-          "title": {
+          "message": {
             "type": "string",
-            "description": "Title",
-            "format": "text",
-            "example": "Title"
-          },
-          "quantity": {
-            "type": "string",
-            "description": "Quantity",
-            "format": "text",
-            "example": "2"
-          },
-          "thumb": {
-            "type": "string",
-            "description": "Picture URL",
-            "format": "text",
-            "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
+            "description": "Message",
+            "example": "Products added"
           }
         }
       },
