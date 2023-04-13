@@ -4,7 +4,8 @@ const { User } = require("../../models/user");
 
 // const { HttpError } = require("../../helpers");
 const { HttpError, sendEmail } = require("../../helpers");
-const { BASE_URL } = process.env;
+// const { BASE_URL } = process.env;
+const BASE_URL_FRONT = "https://team-team-yummy.netlify.app/";
 
 // const { SECRET_KEY } = process.env;
 
@@ -26,7 +27,7 @@ const verifyEmail = async (req, res) => {
     to: user.email,
     subject: "Your email verified",
     html: `Congratulation! You have successfully verified your email<br><br>
-Please visit our website <a target="_blank" href="${BASE_URL}">So Yummy</a>.`,
+Please visit our website <a target="_blank" href="${BASE_URL_FRONT}">So Yummy</a>.`,
   };
 
   await sendEmail(verifiedEmail);

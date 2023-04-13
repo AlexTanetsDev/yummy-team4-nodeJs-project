@@ -1,7 +1,4 @@
 const { Schema, model } = require("mongoose");
-const Joi = require("joi");
-
-const { handleMongooseError } = require("../helpers");
 
 const ingredientSchema = new Schema(
   {
@@ -29,30 +26,8 @@ const ingredientSchema = new Schema(
   }
 );
 
-ingredientSchema.post("save", handleMongooseError);
-
-const ingredient = Joi.object({
-  _id: Joi.string().required(),
-  ttl: Joi.string().required(),
-  //   desc: Joi.string().required(),
-  //   t: Joi.string(),
-  //   thb: Joi.string().required(),
-});
-
-const getIngredientSchema = Joi.object({
-  ingredient: Joi.string()
-    .required()
-    .messages({ "any.required": "ingredientis a required field" }),
-});
-
-const schemas = {
-  getIngredientSchema,
-  ingredient,
-};
-
 const Ingredient = model("ingredient", ingredientSchema);
 
 module.exports = {
   Ingredient,
-  schemas,
 };

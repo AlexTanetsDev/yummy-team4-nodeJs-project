@@ -1132,11 +1132,9 @@
       "RegistrationResponse": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string",
-            "description": "Message",
-            "example": "Verify email send success"
-          }
+          "type": "string",
+          "description": "Token",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDJjMWE3OTNiNzg0Y2ZjYWJiMzNmNmIiLCJpYXQiOjE2ODA3MjM0ODcsImV4cCI6MTY4MDgwNjI4N30.ZIhXzgJS8pbpgwjEaPj-FHs6EHQaHVQ3gWY_zV-Fabk"
         }
       },
       "VerifyResponse": {
