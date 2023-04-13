@@ -66,7 +66,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "$ref": "#/components/schemas/LoginResponse"
                 }
               }
             }
@@ -950,26 +950,7 @@
       "get": {
         "tags": ["ShoppingList"],
         "summary": "Get all products",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "page",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Page number for pagination",
-            "example": "1"
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Page size for pagination",
-            "example": "4"
-          }
-        ],
+        "parameters": [],
         "security": [
           {
             "Bearer": []
@@ -1127,14 +1108,6 @@
             "description": "User's password",
             "example": "123456"
           }
-        }
-      },
-      "RegistrationResponse": {
-        "type": "object",
-        "properties": {
-          "type": "string",
-          "description": "Token",
-          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDJjMWE3OTNiNzg0Y2ZjYWJiMzNmNmIiLCJpYXQiOjE2ODA3MjM0ODcsImV4cCI6MTY4MDgwNjI4N30.ZIhXzgJS8pbpgwjEaPj-FHs6EHQaHVQ3gWY_zV-Fabk"
         }
       },
       "VerifyResponse": {
