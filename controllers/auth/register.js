@@ -48,7 +48,13 @@ const register = async (req, res) => {
 
   res.json({
     token,
-    // message: "Verify email send success",
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      avatarURL: user.avatarURL,
+      subscription: user.subscription,
+    },
   });
 };
 
