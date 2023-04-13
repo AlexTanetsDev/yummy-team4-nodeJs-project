@@ -1,17 +1,19 @@
 const gravatar = require("gravatar");
 const { nanoid } = require("nanoid");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const { User } = require("../../models/user");
 // const { HttpError, sendEmail } = require("../../helpers");
 const { HttpError } = require("../../helpers");
 
 // const { BASE_URL } = process.env;
+const { SECRET_KEY } = process.env;
 
 const register = async (req, res) => {
   // const { name, email, password } = req.body;
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  let user = await User.findOne({ email });
 
   if (user) {
     throw HttpError(409, "Email already exists");
@@ -21,13 +23,6 @@ const register = async (req, res) => {
   const avatarURL = gravatar.url(email);
   const verificationToken = nanoid();
 
-  await User.create({
-    ...req.body,
-    password: hashPassword,
-    avatarURL,
-    verificationToken,
-  });
-
   // const verifyEmail = {
   //   to: email,
   //   subject: "Verify email",
@@ -36,8 +31,23 @@ const register = async (req, res) => {
 
   // await sendEmail(verifyEmail);
 
+  await User.create({
+    ...req.body,
+    password: hashPassword,
+    avatarURL,
+    verificationToken,
+  });
+
+  user = await User.findOne({ email });
+
+  const payload = {
+    _id: user._id,
+  };
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
+  await User.findByIdAndUpdate(user._id, { token });
+
   res.json({
-    message: "User registered",
+    token,
     // message: "Verify email send success",
   });
 };
