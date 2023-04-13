@@ -950,26 +950,7 @@
       "get": {
         "tags": ["ShoppingList"],
         "summary": "Get all products",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "page",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Page number for pagination",
-            "example": "1"
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Page size for pagination",
-            "example": "4"
-          }
-        ],
+        "parameters": [],
         "security": [
           {
             "Bearer": []
