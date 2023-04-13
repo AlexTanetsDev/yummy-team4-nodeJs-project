@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "https://yummy-team4-nodejs-project.onrender.com"
+      "url": "https://team-team-yummy.netlify.app/"
     },
     {
       "url": "http://localhost:3000"
