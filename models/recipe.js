@@ -12,6 +12,10 @@ const recipeSchema = new Schema(
       type: String,
       required: [true, "Category is required"],
     },
+    area: {
+      type: String,
+      required: [true, "Area is required"],
+    },
     instructions: {
       type: String,
       required: [true, "Instructions is required"],
@@ -63,6 +67,7 @@ const recipe = Joi.object({
   category: Joi.string()
     .required()
     .messages({ "any.required": "category is a required field" }),
+  area: Joi.string(),
   description: Joi.string()
     .required()
     .messages({ "any.required": "description is a required field" }),

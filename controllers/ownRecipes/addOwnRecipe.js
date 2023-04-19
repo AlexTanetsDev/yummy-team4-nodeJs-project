@@ -11,9 +11,12 @@ const addOwnRecipe = async (req, res, next) => {
     recipeImageUrl = req.file.path;
   }
   const instructions = joinInstructionsObj(req.body.instructions);
+  const time = String(Number.parseInt(req.body.time));
 
   const newRecipe = await Recipe.create({
     ...req.body,
+    time,
+    area: "Owner",
     instructions,
     thumb: recipeImageUrl,
     preview: recipeImageUrl,
