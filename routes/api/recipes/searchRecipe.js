@@ -34,4 +34,6 @@ router.get(
   ctrl.searchRecipesByIngredient
 );
 
+router.get("/area/:area", authentificate, ctrl.searchRecipesByArea);
+
 module.exports = router;

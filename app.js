@@ -18,6 +18,7 @@ const categoryRecipesRouter = require("./routes/api/recipes/getRecipesByCategory
 const favoriteRouter = require("./routes/api/recipes/favorite");
 const searchRouter = require("./routes/api/recipes/searchRecipe");
 const popularRecipeRouter = require("./routes/api/recipes/popularRecipe");
+const areaListRouter = require("./routes/api/areaList/areaList");
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use("/api/recipes/category", categoryRecipesRouter);
 app.use("/api/recipes/id", idRecipesRouter);
 app.use("/api/favorite", favoriteRouter);
 app.use("/api/search", searchRouter);
+app.use("/api/area-list", areaListRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use((req, res) => {
