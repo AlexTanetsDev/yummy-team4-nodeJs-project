@@ -6,6 +6,8 @@ const getRecepiesByCategory = async (req, res) => {
   const { page = 1, limit = 8 } = req.query;
   const skip = (page - 1) * limit;
 
+  const dataCount = await Recipe.find({}, "_id");
+
   const categoryRecipes = (
     await Recipe.find({ category }, "-updatedAt -createdAt", {
       skip,
@@ -13,7 +15,10 @@ const getRecepiesByCategory = async (req, res) => {
     })
   ).map((recipe) => recipe.toObject());
 
-  res.json(splitInstructions(categoryRecipes));
+  res.json({
+    data: splitInstructions(categoryRecipes),
+    total: dataCount.length,
+  });
 };
 
 module.exports = getRecepiesByCategory;
