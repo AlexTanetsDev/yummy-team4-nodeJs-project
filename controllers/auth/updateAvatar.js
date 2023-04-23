@@ -4,11 +4,10 @@ const cloudinary = require("cloudinary").v2;
 const updateAvatar = async (req, res) => {
   const { _id } = req.user;
   const { name } = req.body;
-  const fieldsReply = { avatarUrl: null, name: null };
-  const fieldsUser = {};
+  const user = await User.findById(_id, "name avatarURL -_id");
   if (req.file) {
     const { filename } = req.file;
-    fieldsReply.avatarUrl = fieldsUser.avatarUrl = cloudinary.url(filename, {
+    user.avatarURL = cloudinary.url(filename, {
       gravity: "faces",
       width: 250,
       height: 250,
@@ -16,11 +15,11 @@ const updateAvatar = async (req, res) => {
     });
   }
   if (name) {
-    fieldsReply.name = fieldsUser.name = name;
+    user.name = name;
   }
 
-  await User.findByIdAndUpdate(_id, fieldsUser);
-  res.json(fieldsReply);
+  await User.findByIdAndUpdate(_id, user);
+  res.json(user);
 };
 
 module.exports = updateAvatar;
