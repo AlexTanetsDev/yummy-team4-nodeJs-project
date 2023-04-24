@@ -1,5 +1,5 @@
 const { Recipe } = require("../../models/recipe");
-const { splitInstructions } = require("../../helpers/");
+// const { splitInstructions } = require("../../helpers/");
 
 const getAllFavoriteRecipes = async (req, res) => {
   const { _id: user } = req.user;
@@ -7,11 +7,13 @@ const getAllFavoriteRecipes = async (req, res) => {
   const skip = (page - 1) * limit;
 
   const data = (
-    await Recipe.find({ favorites: user }, "-createdAt -updatedAt")
+    await Recipe.find({ favorites: user }, "-createdAt").sort({
+      updatedAt: -1,
+    })
   ).map((recipe) => recipe.toObject());
 
   res.json({
-    data: splitInstructions(data.reverse().slice(skip, skip + limit)),
+    data: data.slice(skip, skip + limit),
     total: data.length,
   });
 };
