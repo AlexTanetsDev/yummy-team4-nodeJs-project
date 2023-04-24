@@ -3,23 +3,17 @@ const { splitInstructions } = require("../../helpers/");
 
 const getAllFavoriteRecipes = async (req, res) => {
   const { _id: user } = req.user;
-  let { page = 1, limit = 4 } = req.query;
+  const { page = 1, limit = 4 } = req.query;
   const skip = (page - 1) * limit;
-  limit = Number(limit) > 30 ? (limit = 30) : Number(limit);
-
-  const dataCount = await Recipe.find(
-    { favorites: user },
-    "-createdAt -updatedAt"
-  );
 
   const data = (
-    await Recipe.find({ favorites: user }, "-createdAt -updatedAt", {
-      skip,
-      limit,
-    })
+    await Recipe.find({ favorites: user }, "-createdAt -updatedAt")
   ).map((recipe) => recipe.toObject());
 
-  res.json({ data: splitInstructions(data), total: dataCount.length });
+  res.json({
+    data: splitInstructions(data.reverse().slice(skip, skip + limit)),
+    total: data.length,
+  });
 };
 
 module.exports = getAllFavoriteRecipes;
