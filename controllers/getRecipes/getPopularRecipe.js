@@ -2,7 +2,9 @@ const { HttpError } = require("../../helpers");
 const { Recipe } = require("../../models/recipe");
 
 const getPopularRecipe = async (req, res) => {
-  const { page = 1, limit = 4 } = req.query;
+  let { page = 1, limit = 4 } = req.query;
+  page = Number(page);
+  limit = Number(limit);
   const skip = (page - 1) * limit;
   const result = await Recipe.find(
     {},
