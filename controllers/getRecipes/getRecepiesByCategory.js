@@ -6,7 +6,7 @@ const getRecepiesByCategory = async (req, res) => {
   const { page = 1, limit = 8 } = req.query;
   const skip = (page - 1) * limit;
 
-  const dataCount = await Recipe.find({}, "_id");
+  const dataCount = await Recipe.find({ category }, "_id");
 
   const categoryRecipes = (
     await Recipe.find({ category }, "-updatedAt -createdAt", {
