@@ -3,7 +3,9 @@ const { Recipe } = require("../../models/recipe");
 
 const getAllFavoriteRecipes = async (req, res) => {
   const { _id: user } = req.user;
-  const { page = 1, limit = 4 } = req.query;
+  let { page = 1, limit = 4 } = req.query;
+  page = Number(page);
+  limit = Number(limit);
   const skip = (page - 1) * limit;
 
   const data = (

@@ -15,9 +15,6 @@ const getMainPageRecipes = async (req, res) => {
   const categoryList = await fs.readFile(categoryListPath, "utf-8");
   const category = JSON.parse(categoryList);
 
-  // const { page = 1, limit = 10 } = req.query;
-  // const skip = (page - 1) * limit;
-
   const recipesList = await Recipe.find(
     { category: category },
     "_id title category preview author favorites"
