@@ -8,7 +8,7 @@ const verifyEmail = async (req, res) => {
   if (!user) {
     throw HttpError(
       401,
-      "Your email has already been verified or email not found"
+      "Your email has already been verified or email not found!"
     );
   }
 
