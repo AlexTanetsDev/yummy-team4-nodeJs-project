@@ -1,7 +1,7 @@
 const { User } = require("../../models/user");
 
-const { BASE_URL } = process.env;
-console.log(BASE_URL);
+// const { BASE_URL } = process.env;
+const BASE_URL_FRONT = "https://team-team-yummy.netlify.app/";
 
 const { HttpError, sendEmail } = require("../../helpers");
 
@@ -18,7 +18,7 @@ const resendVerifyEmail = async (req, res) => {
   const verifyEmail = {
     to: email,
     subject: "Verify email",
-    html: `<a target="_blank" href="${BASE_URL}/verify/${user.verificationToken}">Click verify email</a>`,
+    html: `<a target="_blank" href="${BASE_URL_FRONT}/api/users/verify/${user.verificationToken}">Click verify email</a>`,
   };
 
   await sendEmail(verifyEmail);
