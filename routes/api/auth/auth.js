@@ -36,7 +36,7 @@ router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
  *       200:
  *         description: Success
  */
-router.get("/verify/:verificationToken", ctrl.verifyEmail);
+router.post("/verify/:verificationToken", ctrl.verifyEmail);
 /**
  * @swagger
  * /api/users/verify/:verificationToken:
