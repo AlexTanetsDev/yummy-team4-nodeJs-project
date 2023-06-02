@@ -25,7 +25,7 @@ const searchRecipesByIngredient = async (req, res) => {
     })
   ).map((recipe) => recipe.toObject());
 
-  res.json(splitInstructions(result));
+  res.json({ data: splitInstructions(result), total: result.length });
 };
 
 module.exports = searchRecipesByIngredient;

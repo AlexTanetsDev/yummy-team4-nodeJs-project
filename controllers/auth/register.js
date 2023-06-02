@@ -22,7 +22,10 @@ const register = async (req, res) => {
   const verifyEmail = {
     to: email,
     subject: "Verify email",
-    html: `Hi ${name},<br>We just need to verify your email address before you can access So Yummy.<br><br>Verify your email address please <a target="_blank" href="https://team-team-yummy.netlify.app/verify/${verificationToken}">Click verify email</a><br><br>Thanks! – The Team-Team team`,
+    html: `Hi ${name},<br>We just need to verify your email address before you can access So Yummy.
+    <br><br>Verify your email address please
+    <a target="_blank" href="https://team-team-yummy.netlify.app/verify/${verificationToken}">Click verify email</a><br>
+    <br>Thanks! – The Team-Team team`,
   };
 
   await sendEmail(verifyEmail);
