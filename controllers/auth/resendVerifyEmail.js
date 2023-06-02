@@ -1,7 +1,6 @@
 const { User } = require("../../models/user");
 
 const { BASE_URL } = process.env;
-console.log(BASE_URL);
 
 const { HttpError, sendEmail } = require("../../helpers");
 
@@ -12,7 +11,7 @@ const resendVerifyEmail = async (req, res) => {
     throw HttpError(401, "Email not found");
   }
   if (user.verify) {
-    throw HttpError(400, "Email already verify");
+    throw HttpError(400, "Email already verified");
   }
 
   const verifyEmail = {
