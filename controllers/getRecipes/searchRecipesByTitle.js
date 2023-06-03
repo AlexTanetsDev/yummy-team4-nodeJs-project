@@ -9,7 +9,7 @@ const searchRecipesByTitle = async (req, res) => {
 
   const { title } = req.params;
   const searchParams = { $text: { $search: title } };
-
+  const allRecipe = await Recipe.find(searchParams, "-createdAt -updatedAt");
   const searchedRecipes = (
     await Recipe.find(searchParams, "-createdAt -updatedAt", {
       skip,
@@ -19,7 +19,7 @@ const searchRecipesByTitle = async (req, res) => {
 
   res.json({
     data: splitInstructions(searchedRecipes),
-    total: searchedRecipes.length,
+    total: allRecipe.length,
   });
 };
 

@@ -18,6 +18,10 @@ const searchRecipesByIngredient = async (req, res) => {
   }
 
   const { _id: id } = ingredientData;
+  const allRecipe = await Recipe.find(
+    { "ingredients.id": id },
+    "-createdAt -updatedAt"
+  );
   const result = (
     await Recipe.find({ "ingredients.id": id }, "-updatedAt -createdAt", {
       skip,
@@ -25,7 +29,7 @@ const searchRecipesByIngredient = async (req, res) => {
     })
   ).map((recipe) => recipe.toObject());
 
-  res.json({ data: splitInstructions(result), total: result.length });
+  res.json({ data: splitInstructions(result), total: allRecipe.length });
 };
 
 module.exports = searchRecipesByIngredient;
