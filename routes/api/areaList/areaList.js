@@ -8,7 +8,7 @@ const router = express.Router();
  * /api/area-list:
  *   get:
  *     description: area-list
- *     tags: [area-list]
+ *     tags: [Arealist]
  *     responses:
  *       200:
  *         description: Success
