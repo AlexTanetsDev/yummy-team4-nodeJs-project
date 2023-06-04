@@ -41,6 +41,10 @@
     {
       "name": "Subscribe",
       "description": "Subscribe endpoint"
+    },
+    {
+      "name": "Arealist",
+      "description": "Area-list endpoint"
     }
   ],
   "paths": {
@@ -1080,6 +1084,34 @@
           },
           "400": {
             "description": "Bad request",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/areas-list": {
+      "get": {
+        "tags": ["Arealist"],
+        "summary": "Get all areas",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of areas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AreasListResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
             "content": {}
           }
         }
@@ -2125,6 +2157,62 @@
             "enum": ["subscribe", "unsubscribe"],
             "example": "subscribe"
           }
+        }
+      },
+      "AreasListResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "cuisine": {
+              "type": "string",
+              "description": "Cuisine",
+              "example": "ukrainian"
+            },
+            "code": {
+              "type": "string",
+              "description": "Country code",
+              "example": "UA"
+            }
+          },
+          "example": [
+            {
+              "cuisine": "irish",
+              "code": "IE"
+            },
+            {
+              "cuisine": "italian",
+              "code": "IT"
+            },
+            {
+              "cuisine": "jamaican",
+              "code": "JM"
+            },
+            {
+              "cuisine": "japanese",
+              "code": "JP"
+            },
+            {
+              "cuisine": "kenyan",
+              "code": "KE"
+            },
+            {
+              "cuisine": "malaysian",
+              "code": "MY"
+            },
+            {
+              "cuisine": "mexican",
+              "code": "MX"
+            },
+            {
+              "cuisine": "moroccan",
+              "code": "MA"
+            },
+            {
+              "cuisine": "polish",
+              "code": "PL"
+            }
+          ]
         }
       }
     },
