@@ -1,11 +1,14 @@
 const { controllersWrapper } = require("../../helpers");
-const register = require('./register');
-const verifyEmail = require('./verifyEmail');
-const resendVerifyEmail = require('./resendVerifyEmail');
-const login = require('./login');
-const updateAvatar = require('./updateAvatar');
-const getCurrent = require('./getCurrent');
-const logout = require('./logout');
+const register = require("./register");
+const verifyEmail = require("./verifyEmail");
+const resendVerifyEmail = require("./resendVerifyEmail");
+const login = require("./login");
+const updateAvatar = require("./updateAvatar");
+const getCurrent = require("./getCurrent");
+const logout = require("./logout");
+const forgotPassword = require("./forgotPassword");
+const verifyResetEmail = require("./verifyResetEmail");
+const resetEmail = require("./resetEmail");
 
 module.exports = {
   register: controllersWrapper(register),
@@ -15,4 +18,7 @@ module.exports = {
   updateAvatar: controllersWrapper(updateAvatar),
   getCurrent: controllersWrapper(getCurrent),
   logout: controllersWrapper(logout),
+  forgotPassword: controllersWrapper(forgotPassword),
+  verifyResetEmail: controllersWrapper(verifyResetEmail),
+  resetEmail: controllersWrapper(resetEmail),
 };
