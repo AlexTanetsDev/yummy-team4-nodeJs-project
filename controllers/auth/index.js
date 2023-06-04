@@ -8,7 +8,7 @@ const getCurrent = require("./getCurrent");
 const logout = require("./logout");
 const forgotPassword = require("./forgotPassword");
 const verifyResetEmail = require("./verifyResetEmail");
-const resetEmail = require("./resetEmail");
+const resetPassword = require("./resetPassword");
 
 module.exports = {
   register: controllersWrapper(register),
@@ -20,5 +20,5 @@ module.exports = {
   logout: controllersWrapper(logout),
   forgotPassword: controllersWrapper(forgotPassword),
   verifyResetEmail: controllersWrapper(verifyResetEmail),
-  resetEmail: controllersWrapper(resetEmail),
+  resetPassword: controllersWrapper(resetPassword),
 };

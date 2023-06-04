@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const { User } = require("../../models/user");
 
-const resetEmail = async (req, res) => {
+const resetPassword = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -26,4 +26,4 @@ const resetEmail = async (req, res) => {
   });
 };
 
-module.exports = resetEmail;
+module.exports = resetPassword;
