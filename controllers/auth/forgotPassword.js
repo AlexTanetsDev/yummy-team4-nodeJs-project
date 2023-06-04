@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const { User } = require("../../models/user");
 
-const { FRONT_URL } = process.env;
+const { BASE_URL } = process.env;
 
 const { HttpError, sendEmail } = require("../../helpers");
 
@@ -28,7 +28,7 @@ const forgotPassword = async (req, res) => {
   const authentificationEmail = {
     to: email,
     subject: "Confirm password",
-    html: `<a target="_blank" href="http://localhost:3000/reset/${resetPasswordToken}">Click for authentificate email</a>`,
+    html: `<a target="_blank" href="${BASE_URL}/reset/${resetPasswordToken}">Click for authentificate email</a>`,
   };
 
   await sendEmail(authentificationEmail);

@@ -2,8 +2,6 @@ const { User } = require("../../models/user");
 
 const { controllersWrapper, sendEmail } = require("../../helpers");
 
-// const { BASE_URL } = process.env;
-
 const updateSubscription = async (req, res) => {
   const { _id } = req.user;
   const { subscription, email } = req.body;
