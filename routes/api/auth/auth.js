@@ -53,6 +53,11 @@ router.post(
   ctrl.resendVerifyEmail
 );
 
+router.post("/reset/:resetPasswordToken", ctrl.verifyResetEmail);
+router.post("/reset", ctrl.resetEmail);
+
+router.post("/forgot", validateBody(schemas.emailSchema), ctrl.forgotPassword);
+
 /**
  * @swagger
  * /api/users/login:
