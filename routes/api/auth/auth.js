@@ -54,7 +54,7 @@ router.post(
 );
 
 router.post("/reset/:resetPasswordToken", ctrl.verifyResetEmail);
-router.post("/reset", ctrl.resetEmail);
+router.post("/reset", validateBody(schemas.passwordSchema), ctrl.resetPassword);
 
 router.post("/forgot", validateBody(schemas.emailSchema), ctrl.forgotPassword);
 
