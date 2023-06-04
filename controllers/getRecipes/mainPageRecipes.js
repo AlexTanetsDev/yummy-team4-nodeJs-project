@@ -1,22 +1,17 @@
 const { Recipe } = require("../../models/recipe");
 const { HttpError } = require("../../helpers");
 
-const fs = require("fs/promises");
-const path = require("path");
-const categoryListPath = path.join(
-  __dirname,
-  "..",
-  "..",
-  "StaticData",
-  "categoryList.json"
-);
-
 const getMainPageRecipes = async (req, res) => {
-  const categoryList = await fs.readFile(categoryListPath, "utf-8");
-  const category = JSON.parse(categoryList);
+  const data = (await Recipe.find({}, "category -_id")).map((recipe) =>
+    recipe.toObject()
+  );
+
+  const categories = [...new Set(Array.from(data, ({ category }) => category))]
+    .sort((a, b) => a.localeCompare(b))
+    .filter((el) => el !== undefined);
 
   const recipesList = await Recipe.find(
-    { category: category },
+    { category: categories },
     "_id title category preview author favorites"
   );
 
@@ -24,7 +19,7 @@ const getMainPageRecipes = async (req, res) => {
     throw HttpError(404, "Not found");
   }
 
-  const result = category.map((item) => {
+  const result = categories.map((item) => {
     return {
       category: item,
       recipes: [...recipesList]
