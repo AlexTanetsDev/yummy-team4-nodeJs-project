@@ -1089,7 +1089,7 @@
         }
       }
     },
-    "/api/areas-list": {
+    "/api/area-list": {
       "get": {
         "tags": ["Arealist"],
         "summary": "Get all areas",
