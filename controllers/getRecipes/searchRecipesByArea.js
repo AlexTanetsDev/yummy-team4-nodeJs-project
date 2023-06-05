@@ -5,14 +5,14 @@ const searchRecipesByArea = async (req, res) => {
   const skip = (page - 1) * limit;
 
   const { area } = req.params;
-
+  const allAreaRecipes = await Recipe.find({ area }, "-createdAt -updatedAt");
   const data = (
     await Recipe.find({ area }, "-createdAt -updatedAt", {
       skip,
       limit,
     })
   ).map((recipe) => recipe.toObject());
-  const total = data.length;
+  const total = allAreaRecipes.length;
   res.json({ data, total });
 };
 
