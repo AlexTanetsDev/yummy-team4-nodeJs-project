@@ -82,12 +82,18 @@ const emailSchema = Joi.object({
   }),
 });
 
-const passwordSchema = Joi.object({
+const resetSchema = Joi.object({
   password: Joi.string().min(6).required().messages({
     "string.base": `password should be a type of 'text'`,
     "string.empty": `password cannot be an empty field`,
     "string.min": `password should have a minimum length of 6`,
     "any.required": `password is a required field`,
+  }),
+  email: Joi.string().pattern(emailPattern).required().messages({
+    "string.base": `email should be a type of 'text'`,
+    "string.empty": `email cannot be an empty field`,
+    "string.pattern.base": `email  fails to match the required pattern example@mail.com`,
+    "any.required": `email is a required field`,
   }),
 });
 
@@ -129,7 +135,7 @@ const schemas = {
   emailSchema,
   loginSchema,
   updateSubscriptionSchema,
-  passwordSchema,
+  resetSchema,
 };
 
 const User = model("user", userSchema);

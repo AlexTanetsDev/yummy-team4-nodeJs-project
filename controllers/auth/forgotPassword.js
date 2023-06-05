@@ -10,7 +10,6 @@ const { SECRET_KEY } = process.env;
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
-  console.log(req.body);
   const user = await User.findOne({ email });
   if (!user) {
     throw HttpError(401, "Email not found");
@@ -22,7 +21,7 @@ const forgotPassword = async (req, res) => {
   };
 
   const resetPasswordToken = jwt.sign(payload, SECRET_KEY, {
-    expiresIn: "1h",
+    expiresIn: "5m",
   });
 
   const authentificationEmail = {
