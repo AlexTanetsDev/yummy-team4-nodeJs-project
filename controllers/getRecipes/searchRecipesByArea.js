@@ -6,14 +6,14 @@ const searchRecipesByArea = async (req, res) => {
 
   const { area } = req.params;
 
-  const searchedRecipes = (
+  const data = (
     await Recipe.find({ area }, "-createdAt -updatedAt", {
       skip,
       limit,
     })
   ).map((recipe) => recipe.toObject());
-  const total = searchedRecipes.length;
-  res.json({ searchedRecipes, total });
+  const total = data.length;
+  res.json({ data, total });
 };
 
 module.exports = searchRecipesByArea;
