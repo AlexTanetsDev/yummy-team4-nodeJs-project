@@ -8,6 +8,13 @@ const addFavoriteRecipe = async (req, res) => {
     $and: [{ _id: recipeId }, { favorites: userId }],
   });
 
+  let firstFavoriteRecipe = false;
+  const data = await Recipe.find({ favorites: userId });
+
+  if (data.length === 0) {
+    firstFavoriteRecipe = true;
+  }
+
   if (isFavorite) {
     throw HttpError(409, "This recipe has already added to favorite");
   }
@@ -15,7 +22,7 @@ const addFavoriteRecipe = async (req, res) => {
   await Recipe.findByIdAndUpdate(recipeId, {
     $addToSet: { favorites: userId },
   });
-  res.status(201).json({ message: "Added to favorite" });
+  res.status(201).json({ message: "Added to favorite", firstFavoriteRecipe });
 };
 
 module.exports = addFavoriteRecipe;
