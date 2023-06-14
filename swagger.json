@@ -1286,6 +1286,11 @@
             "description": "Subscribtion on email",
             "enum": ["subscribe", "unsubscribe"],
             "example": "subscribe"
+          },
+          "tenthDayOfUsage": {
+            "type": "boolean",
+            "description": "Using the application for 10 days",
+            "example": "false"
           }
         }
       },
@@ -1636,6 +1641,11 @@
             "type": "string",
             "description": "Message",
             "example": "Added to favorite"
+          },
+          "firstFavoriteRecipe": {
+            "type": "boolean",
+            "description": "First added recipe to favorite",
+            "example": "false"
           }
         }
       },
@@ -1966,70 +1976,85 @@
       "addOwnerRecipeResponse": {
         "type": "object",
         "properties": {
-          "title": {
-            "type": "string",
-            "description": "Title",
-            "format": "text",
-            "example": "New Recipe"
-          },
-          "category": {
-            "type": "string",
-            "description": "Category",
-            "format": "text",
-            "example": "Beaf"
-          },
-          "instructions": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "Recipe's instructions",
-            "example": ["String1", "String2"]
-          },
-          "description": {
-            "type": "string",
-            "description": "Description",
-            "format": "text",
-            "example": "Description text"
-          },
-          "thumb": {
-            "type": "string",
-            "description": "recept's picture",
-            "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
-          },
-          "preview": {
-            "type": "string",
-            "description": "recept's picture",
-            "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
-          },
-          "time": {
-            "type": "string",
-            "description": "Time",
-            "format": "text",
-            "example": "40"
-          },
-          "ingredients": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "description": "Ingredient's id",
-                  "example": "640cd5ac2d9fecf12e8898fa"
+          "newRecipe": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Title",
+                "format": "text",
+                "example": "New Recipe"
+              },
+              "category": {
+                "type": "string",
+                "description": "Category",
+                "format": "text",
+                "example": "Beaf"
+              },
+              "instructions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
                 },
-                "measure": {
-                  "type": "string",
-                  "description": "Ingredient's count",
-                  "example": "50g"
+                "description": "Recipe's instructions",
+                "example": ["String1", "String2"]
+              },
+              "description": {
+                "type": "string",
+                "description": "Description",
+                "format": "text",
+                "example": "Description text"
+              },
+              "thumb": {
+                "type": "string",
+                "description": "recept's picture",
+                "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
+              },
+              "preview": {
+                "type": "string",
+                "description": "recept's picture",
+                "example": "https://res.cloudinary.com/dkkt8rmcn/image/upload/v1680464746/ndlcqobhy7tsrh5fgjoi.jpg"
+              },
+              "time": {
+                "type": "string",
+                "description": "Time",
+                "format": "text",
+                "example": "40"
+              },
+              "ingredients": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Ingredient's id",
+                      "example": "640cd5ac2d9fecf12e8898fa"
+                    },
+                    "measure": {
+                      "type": "string",
+                      "description": "Ingredient's count",
+                      "example": "50g"
+                    }
+                  }
                 }
+              },
+              "author": {
+                "type": "string",
+                "description": "User's id",
+                "example": "642c1a793b784cfcabb33f6b"
               }
             }
           },
-          "author": {
-            "type": "string",
-            "description": "User's id",
-            "example": "642c1a793b784cfcabb33f6b"
+          "firstAddedRecipe": {
+            "type": "boolean",
+            "description": "Created first recipe",
+            "example": "false"
+          },
+          "tenthAddedRecipe": {
+            "type": "boolean",
+            "description": "Created tenth recipe",
+            "example": "false"
           }
         }
       },
