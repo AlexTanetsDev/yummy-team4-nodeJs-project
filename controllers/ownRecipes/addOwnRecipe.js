@@ -25,7 +25,6 @@ const addOwnRecipe = async (req, res, next) => {
     tenthAddedRecipe = true;
   }
 
-  console.log(tenthAddedRecipe, firstAddedRecipe);
   const newRecipe = await Recipe.create({
     ...req.body,
     time,
