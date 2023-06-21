@@ -9,6 +9,8 @@ const logout = require("./logout");
 const forgotPassword = require("./forgotPassword");
 const verifyResetEmail = require("./verifyResetEmail");
 const resetPassword = require("./resetPassword");
+const googleAuth = require("./googleAuth");
+const googleRedirect = require("./googleRedirect");
 
 module.exports = {
   register: controllersWrapper(register),
@@ -21,4 +23,6 @@ module.exports = {
   forgotPassword: controllersWrapper(forgotPassword),
   verifyResetEmail: controllersWrapper(verifyResetEmail),
   resetPassword: controllersWrapper(resetPassword),
+  googleAuth: controllersWrapper(googleAuth),
+  googleRedirect: controllersWrapper(googleRedirect),
 };
