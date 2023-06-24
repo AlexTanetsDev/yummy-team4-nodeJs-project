@@ -1,6 +1,7 @@
 const axios = require("axios");
 const gravatar = require("gravatar");
-const queryString = require("querystring");
+const { nanoid } = require("nanoid");
+const bcrypt = require("bcrypt");
 const { User } = require("../../models/user");
 const jwt = require("jsonwebtoken");
 
@@ -13,22 +14,30 @@ const {
 } = process.env;
 
 const googleRedirect = async (req, res) => {
-  const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
-  const urlObj = new URL(fullUrl);
-  const urlParams = queryString.parse(urlObj.search);
-  const code = urlParams.code;
+  const code = req.query.code;
 
-  const tokenData = await axios({
-    url: `https://oauth2.googleapis.com/token`,
-    method: "post",
-    data: {
-      client_id: GOOGLE_CLIENT_ID,
-      client_secret: GOOGLE_CLIENT_SECRET,
-      redirect_url: `${BASE_URL}/auth/google-redirect`,
-      grant_type: "authorization_code",
-      code: code,
-    },
-  });
+  console.log("code:", code);
+  console.log("GOOGLE_CLIENT_ID", GOOGLE_CLIENT_ID);
+  console.log("GOOGLE_CLIENT_SECRET", GOOGLE_CLIENT_SECRET);
+  console.log("BASE_URL", BASE_URL);
+  console.log("FRONT_BASE_URL", FRONT_BASE_URL);
+  let tokenData;
+
+  try {
+    tokenData = await axios({
+      url: "https://oauth2.googleapis.com/token",
+      method: "post",
+      data: {
+        code,
+        client_id: GOOGLE_CLIENT_ID,
+        client_secret: GOOGLE_CLIENT_SECRET,
+        redirect_uri: `${BASE_URL}/api/users/google-redirect`,
+        grant_type: "authorization_code",
+      },
+    });
+  } catch (error) {
+    console.log("error:", error.response.data.error);
+  }
 
   const userData = await axios({
     url: "https://www.googleapis.com/oauth2/v2/userinfo",
@@ -38,27 +47,33 @@ const googleRedirect = async (req, res) => {
     },
   });
 
-  const userEmail = userData.data.email;
-  const userName = userData.data.name;
-  let user = await User.findOne({ userEmail });
+  const { email, name } = userData.data;
+  const hashPassword = await bcrypt.hash(nanoid(), 10);
+  console.log(name);
+  console.log(email);
+  let user = await User.findOne({ email });
 
   if (!user) {
-    const avatarURL = gravatar.url(userEmail);
+    console.log("Create");
+    const avatarURL = gravatar.url(email);
     await User.create({
-      name: userName,
-      email: userEmail,
+      name: name,
+      email: email,
+      password: hashPassword,
+      verify: true,
+      verificationToken: " ",
       avatarURL,
     });
   }
 
-  user = await User.findOne({ userEmail });
+  user = await User.findOne({ email });
 
   const payload = {
     _id: user._id,
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
-  await User.findByIdAndUpdate(user._id, { token });
+  await User.findByIdAndUpdate(user._id, { token, verificationToken: "" });
 
   return res.redirect(`${FRONT_BASE_URL}/google-redirect/${token} `);
 };

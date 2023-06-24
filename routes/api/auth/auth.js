@@ -107,5 +107,7 @@ router.get("/current", authentificate, ctrl.getCurrent);
  *         description: Success
  */
 router.post("/logout", authentificate, ctrl.logout);
+router.get("/google", ctrl.googleAuth);
+router.get("/google-redirect", ctrl.googleRedirect);
 
 module.exports = router;
