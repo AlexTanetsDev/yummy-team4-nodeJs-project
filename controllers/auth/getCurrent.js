@@ -1,5 +1,13 @@
 const getCurrent = async (req, res) => {
-  const { _id: id, name, email, avatarURL, subscription, createdAt } = req.user;
+  const {
+    _id: id,
+    name,
+    email,
+    avatarURL,
+    subscription,
+    createdAt,
+    token,
+  } = req.user;
 
   const currentDate = new Date();
   const userCreationDate = new Date(createdAt);
@@ -18,6 +26,7 @@ const getCurrent = async (req, res) => {
     avatarURL,
     subscription,
     tenthDayOfUsage,
+    token,
   });
 };
 
