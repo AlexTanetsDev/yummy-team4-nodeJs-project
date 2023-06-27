@@ -49,12 +49,9 @@ const googleRedirect = async (req, res) => {
 
   const { email, name } = userData.data;
   const hashPassword = await bcrypt.hash(nanoid(), 10);
-  console.log(name);
-  console.log(email);
   let user = await User.findOne({ email });
 
   if (!user) {
-    console.log("Create");
     const avatarURL = gravatar.url(email);
     await User.create({
       name: name,
