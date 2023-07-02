@@ -8,7 +8,7 @@ const getAreaList = async (req, res) => {
 
   const areas = [...new Set(Array.from(data, ({ area }) => area))]
     .sort((a, b) => a.localeCompare(b))
-    .filter((el) => el !== undefined);
+    .filter((el) => el !== undefined && el !== "Russian");
 
   const cuisineCodes = (await Cuisine.find({}, "-_id")).map((cuisine) =>
     cuisine.toObject()
@@ -16,7 +16,6 @@ const getAreaList = async (req, res) => {
 
   const areasWithCode = [];
   areas.forEach((area) => {
-    console.log(area);
     const item = cuisineCodes.find((cus) => cus.cuisine === area.toLowerCase());
     if (item) areasWithCode.push(item);
   });
