@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const { User } = require("../../models/user");
 
 const resetPassword = async (req, res) => {
-  const { email, password } = req.body;
+  const { password, email } = req.body;
 
   const user = await User.findOne({ email });
 

@@ -12,6 +12,18 @@ const addOwnRecipe = async (req, res, next) => {
   }
   const instructions = joinInstructionsObj(req.body.instructions);
   const time = String(Number.parseInt(req.body.time));
+  let firstAddedRecipe = false;
+  let tenthAddedRecipe = false;
+
+  const data = await Recipe.find({ author: _id });
+
+  if (data.length === 0) {
+    firstAddedRecipe = true;
+  }
+
+  if (data.length === 9) {
+    tenthAddedRecipe = true;
+  }
 
   const newRecipe = await Recipe.create({
     ...req.body,
@@ -23,7 +35,7 @@ const addOwnRecipe = async (req, res, next) => {
     author: _id,
   });
 
-  res.status(201).json(newRecipe);
+  res.status(201).json({ newRecipe, firstAddedRecipe, tenthAddedRecipe });
 };
 
 module.exports = addOwnRecipe;

@@ -54,7 +54,7 @@ router.post(
 );
 
 router.post("/reset/:resetPasswordToken", ctrl.verifyResetEmail);
-router.post("/reset", validateBody(schemas.passwordSchema), ctrl.resetPassword);
+router.post("/reset", validateBody(schemas.resetSchema), ctrl.resetPassword);
 
 router.post("/forgot", validateBody(schemas.emailSchema), ctrl.forgotPassword);
 
@@ -107,5 +107,7 @@ router.get("/current", authentificate, ctrl.getCurrent);
  *         description: Success
  */
 router.post("/logout", authentificate, ctrl.logout);
+router.get("/google", ctrl.googleAuth);
+router.get("/google-redirect", ctrl.googleRedirect);
 
 module.exports = router;

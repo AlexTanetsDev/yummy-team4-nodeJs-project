@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const { User } = require("../../models/user");
 
-const { BASE_URL } = process.env;
+const { FRONT_BASE_URL } = process.env;
 
 const { HttpError, sendEmail } = require("../../helpers");
 
@@ -10,7 +10,6 @@ const { SECRET_KEY } = process.env;
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
-  console.log(req.body);
   const user = await User.findOne({ email });
   if (!user) {
     throw HttpError(401, "Email not found");
@@ -22,13 +21,13 @@ const forgotPassword = async (req, res) => {
   };
 
   const resetPasswordToken = jwt.sign(payload, SECRET_KEY, {
-    expiresIn: "1h",
+    expiresIn: "5m",
   });
 
   const authentificationEmail = {
     to: email,
     subject: "Confirm password",
-    html: `<a target="_blank" href="${BASE_URL}/reset/${resetPasswordToken}">Click for authentificate email</a>`,
+    html: `<a target="_blank" href="${FRONT_BASE_URL}/reset/${resetPasswordToken}">Click for authentificate email</a>`,
   };
 
   await sendEmail(authentificationEmail);
