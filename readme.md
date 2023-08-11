@@ -28,6 +28,8 @@
 - :gear: /api/users/update - Update avatar and name (PATCH).
 - :gear: /api/users/current - Current user info (GET).
 - :gear: /api/users/logout - Log out user (POST).
+- :gear: /api/users/google - Receiving a registration request through Google (GET).
+- :gear: /api/users/google-redirect - Request username and email from Google (GET).
 
 <h3>Category List endpoints:</h3>
 
